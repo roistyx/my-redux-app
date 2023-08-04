@@ -1,0 +1,15 @@
+.header {
+    width: 100vw;
+    height: 50px;
+    background-color: azure;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header .welcome-message {
+    text-align: left;
+    margin-left: 15px;
+    line-height: 45px;
+}
+
+/* .header */

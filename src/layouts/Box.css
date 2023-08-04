@@ -1,0 +1,15 @@
+:root {
+	--background: #fff;
+	--border: #fff;
+	--gap: 1rem;
+	--margin: 0 0 0 0;
+	--border-radius: 0.25rem;
+}
+
+.Box {
+	background-color: var(--background);
+	border: 1px solid var(--border);
+	padding: var(--gap);
+	margin: var(--boxMargin);
+	border-radius: var(--border-radius);
+}
