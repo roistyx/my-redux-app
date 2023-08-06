@@ -17,8 +17,9 @@ export default class searchStocks {
     try {
       const response = await axios.post(
         "http://localhost:3100/historical",
-        "searchObj"
+        searchObj
       );
+
       return response.data;
     } catch (error) {
       console.log("Error while calling getUserProfile API ", error);

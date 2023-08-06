@@ -27,7 +27,7 @@ function Search() {
     // dispatch(setDates(event.target.value));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const searchObj = {
       searchQuery: search,
       startMonth: dates[0].$M + 1,
@@ -38,7 +38,8 @@ function Search() {
       endYear: dates[1].$y,
     };
     // console.log(searchObj);
-    searchStocks.getStockData(searchObj);
+    const response = await searchStocks.getStockData(searchObj);
+    console.log(response);
   };
 
   return (
