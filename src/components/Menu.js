@@ -34,7 +34,7 @@ export default function BasicMenu({ links }) {
         }}>
         {links.map((item) => (
           <MenuItem onClick={handleClose} key={item.name}>
-            <Link to={item.link}>{item.name}</Link>
+            <Link href={item.link}>{item.name}</Link>
           </MenuItem>
         ))}
       </Menu>

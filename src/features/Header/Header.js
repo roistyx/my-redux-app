@@ -14,6 +14,7 @@ export default function Header() {
 
   const menuItems = [
     { name: "Home", link: "/" },
+    { name: "News", link: "/news" },
     { name: "Search", link: "/search" },
     { name: "Login", link: "/login" },
   ];
