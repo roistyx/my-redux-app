@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../Auth/authSlice";
+import { Between } from "../../layouts/Line.js";
+import Menu from "../../components/Menu.js";
 
 import "./Header.css";
 
@@ -10,19 +12,33 @@ export default function Header() {
   const { searchQuery } = useSelector((state) => state.search);
   const { datesQuery } = useSelector((state) => state.search);
 
+  const menuItems = [
+    { name: "Home", link: "/" },
+    { name: "Search", link: "/search" },
+    { name: "Login", link: "/login" },
+  ];
+
   return (
-    <nav className="header">
-      <div className="welcome-message">
-        Hi {isLoggedIn ? username : "Guest"}!
+    <Between>
+      <div>Hi</div>
+
+      <div>Search:{searchQuery}</div>
+      <div>
+        <Menu links={menuItems} />
       </div>
-      <span className="search-query">Search:{searchQuery}</span>
-      <span className="search-query">Dates:{datesQuery}</span>
-      <button
-        onClick={() => {
-          dispatch(logoutUser());
-        }}>
-        Logout
-      </button>
-    </nav>
+    </Between>
+    // <nav className="header">
+    //   <div className="welcome-message">
+    //     Hi {isLoggedIn ? username : "Guest"}!
+    //   </div>
+    //   <span className="search-query">Search:{searchQuery}</span>
+    //   <span className="search-query">Dates:{datesQuery}</span>
+    //   <button
+    //     onClick={() => {
+    //       dispatch(logoutUser());
+    //     }}>
+    //     Logout
+    //   </button>
+    // </nav>
   );
 }
