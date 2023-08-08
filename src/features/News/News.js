@@ -28,7 +28,11 @@ function News() {
     <div>
       <Center>
         <Box>
-          <TextField onChange={handleSearch} label="Search" />
+          <TextField
+            inputProps={{ style: { textTransform: "uppercase" } }}
+            onChange={handleSearch}
+            label="Search"
+          />
           <div className="Button">
             <Button
               className="Button"
@@ -40,18 +44,21 @@ function News() {
         </Box>
       </Center>
       <Center>
-        <div className="News">
-          {newsFeed.map((news) => (
-            <div className="NewsItem">
-              <div className="NewsTitle">{news.title}</div>
-              <div className="NewsDescription">{news.description}</div>
-              <div className="NewsLink">
-                <a href={news.link}>Link</a>
+        <Box>
+          <div className="grid-container">
+            {newsFeed.map((news) => (
+              <div className="grid-item">
+                <div className="NewsTitle">{news.title}</div>
+                <div className="NewsDescription">{news.description}</div>
+                <div className="NewsLink"></div>
+                <div>{news.summary}</div>
+                <a href={news.url} target="_blank">
+                  Link
+                </a>
               </div>
-              <div>{news.summary}</div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </Box>
       </Center>
     </div>
   );

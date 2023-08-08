@@ -1,0 +1,37 @@
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.grid-item {
+  flex: 1 0 calc(33.33% - 20px); /* Each column takes 33.33% of container width with a margin of 20px */
+  margin: 10px;
+  background-color: #f0f0f0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.NewsTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.NewsDescription {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.NewsLink {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #0000ff;
+}
+
+@media screen and (max-width: 768px) {
+  .grid-item {
+    flex-basis: calc(
+      50% - 20px
+    ); /* Each column takes 50% of container width with a margin of 20px on mobile */
+  }
+}
