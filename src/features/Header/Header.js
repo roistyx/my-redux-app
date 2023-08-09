@@ -9,7 +9,7 @@ export default function Header() {
   const dispatch = useDispatch();
 
   const { username, isLoggedIn } = useSelector((state) => state.auth);
-  const { searchQuery } = useSelector((state) => state.search);
+  const { symbol, stockData } = useSelector((state) => state.search);
   const { datesQuery } = useSelector((state) => state.search);
 
   const menuItems = [
@@ -23,7 +23,7 @@ export default function Header() {
     <Between>
       <div>Hi</div>
 
-      <div>Search:{searchQuery}</div>
+      <div>Search:{stockData.shortName}</div>
       <div>
         <Menu links={menuItems} />
       </div>

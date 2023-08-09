@@ -2,18 +2,22 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   searchResults: [],
-  searchQuery: "",
+  symbol: "",
   datesQuery: "",
   searchStatus: "idle",
   searchError: null,
+  stockData: [],
 };
 
 export const searchSlice = createSlice({
   name: "search",
   initialState,
   reducers: {
-    setSearchQuery: (state, action) => {
-      state.searchQuery = action.payload;
+    setSearchSymbol: (state, action) => {
+      state.symbol = action.payload;
+    },
+    setStockData: (state, action) => {
+      state.stockData = action.payload;
     },
     setDates: (state, action) => {
       state.datesQuery = action.payload;
@@ -21,6 +25,6 @@ export const searchSlice = createSlice({
   },
 });
 
-export const { setSearchQuery, setDates } = searchSlice.actions;
+export const { setSearchSymbol, setDates, setStockData } = searchSlice.actions;
 
 export default searchSlice.reducer;

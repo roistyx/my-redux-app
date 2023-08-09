@@ -3,8 +3,8 @@ import { Center } from "../../layouts/Line.js";
 // import TextField from "../../components/TextField.js";
 import searchStocks from "../../api/searchStocks.js";
 import DatesPicker from "../../components/DatesPicker.js";
-import { useDispatch } from "react-redux";
-import { setSearchQuery, setDates } from "./searchSlice.js";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchSymbol, setDates, setStockData } from "./searchSlice.js";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
@@ -15,11 +15,10 @@ import "./Search.css";
 function Search() {
   const dispatch = useDispatch();
   const [dates, setDates] = useState("");
-  const [search, setSearch] = useState("");
+  const { symbol } = useSelector((state) => state.search);
 
   const handleSearch = (event) => {
-    setSearch(event.target.value);
-    dispatch(setSearchQuery(event.target.value));
+    dispatch(setSearchSymbol(event.target.value));
   };
 
   const handleDatesPick = (event) => {
@@ -27,19 +26,24 @@ function Search() {
     // dispatch(setDates(event.target.value));
   };
 
+  // const handleSubmit = async () => {
+  //   const searchObj = {
+  //     searchQuery: search,
+  //     startMonth: dates[0].$M + 1,
+  //     startDate: dates[0].$D,
+  //     startYear: dates[0].$y,
+  //     endMonth: dates[1].$M + 1,
+  //     endDate: dates[1].$D,
+  //     endYear: dates[1].$y,
+  //   };
+  //   const response = await searchStocks.getStockData(searchObj);
+  //   console.log(response);
+  // };
+
   const handleSubmit = async () => {
-    const searchObj = {
-      searchQuery: search,
-      startMonth: dates[0].$M + 1,
-      startDate: dates[0].$D,
-      startYear: dates[0].$y,
-      endMonth: dates[1].$M + 1,
-      endDate: dates[1].$D,
-      endYear: dates[1].$y,
-    };
-    // console.log(searchObj);
-    const response = await searchStocks.getStockData(searchObj);
-    console.log(response);
+    const response = await searchStocks.getStockQuote(symbol);
+    dispatch(setStockData(response.data));
+    console.log(response.data);
   };
 
   return (
@@ -47,7 +51,7 @@ function Search() {
       <Center>
         <Box>
           <TextField onChange={handleSearch} label="Search" />
-          <DatesPicker onChange={handleDatesPick} />
+          {/* <DatesPicker onChange={handleDatesPick} /> */}
           <div className="Button">
             <Button
               className="Button"
