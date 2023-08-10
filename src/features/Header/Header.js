@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../Auth/authSlice";
 import { Between } from "../../layouts/Line.js";
 import Menu from "../../components/Menu.js";
+import Search from "../Search/Search.js";
 
 import "./Header.css";
 
@@ -21,9 +22,9 @@ export default function Header() {
 
   return (
     <Between>
-      <div>Hi</div>
+      <Search />
 
-      <div>Search:{stockData.shortName}</div>
+      <div>Search:{stockData.displayName}</div>
       <div>
         <Menu links={menuItems} />
       </div>

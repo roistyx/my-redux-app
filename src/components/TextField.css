@@ -1,11 +1,13 @@
 .text-field {
   height: 100%;
-  width: 30%;
+  /* width: 30%; */
   max-width: 300px;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
   align-items: center;
+  background-color: var(--background-color);
+  padding: var(--spacing);
+  border-radius: 4px;
+  border: 1px solid var(--background-color);
 }
 
 .text-field label {
@@ -17,13 +19,21 @@
 
 .text-field input {
   margin: var(--margin);
-  padding: 10px;
+  padding: 8px;
   height: 16px;
   width: 80%;
   font-size: 16px;
+  color: var(--font-color);
   border-radius: 4px;
-  border: 1px solid #bdbdbd;
-  transition: border-color 0.3s ease;
+  border: 1px solid var(--background-color);
+  /* transition: border-color 0.3s ease; */
+  text-transform: var(--text-transform);
+  background-color: var(--input-bg);
+}
+
+input::placeholder {
+  color: var(--font-color);
+  opacity: 1;
 }
 
 .text-field input:focus {
