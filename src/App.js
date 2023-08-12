@@ -10,7 +10,7 @@ import News from "./features/News/News";
 function App() {
   return (
     <div className="App">
-      <Header />
+      <Header backgroundColor="#1976d2" height="50px" gap="6px" />
       <BrowserRouter>
         <Routes>
           <Route path="/search" element={<Search />} />

@@ -1,10 +1,11 @@
 .Line {
   display: flex;
-  gap: var(--gap);
   box-sizing: border-box;
-
-  /* height: 100%; */
-  /* align-items: center; */
+  flex-direction: row;
+  padding: var(--gap);
+  height: var(--height);
+  align-items: center;
+  background-color: var(--background-color);
 }
 
 .Line.flex-end {

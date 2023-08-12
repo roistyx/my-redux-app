@@ -21,7 +21,8 @@ export default function BasicMenu({ links }) {
         aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
-        onClick={handleClick}>
+        onClick={handleClick}
+        variant="contained">
         Dashboard
       </Button>
       <Menu

@@ -12,15 +12,17 @@ import Box from "@mui/material/Box";
 
 import "./Search.css";
 
-function Search() {
+function Search({ backgroundColor, height, gap }) {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState("");
   const [isTyping, setIsTyping] = useState(false);
-  console.log(isTyping);
 
   const handleSearch = async (event) => {
     setIsTyping(
-      !(event.key === "Backspace" && event.target.value.length === 1)
+      !(
+        (event.key === "Backspace" && event.target.value.length === 1) ||
+        event.target.value.length === 0
+      )
     );
     if (event.key !== "Enter") return;
     setIsLoading(true);
@@ -34,9 +36,10 @@ function Search() {
       onKeyDown={handleSearch}
       label="Search..."
       textTransform={isTyping ? "uppercase" : "none"}
-      backgroundColor="#1976d2"
+      backgroundColor={backgroundColor}
+      height={height}
+      gap={gap}
       fontColor="white"
-      spacing="3px"
     />
   );
 }

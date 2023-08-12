@@ -9,7 +9,7 @@ const TextField = ({
   textTransform,
   backgroundColor,
   fontColor,
-  spacing,
+  gap,
 }) => {
   const tintedColor = chroma(backgroundColor).brighten(1).hex();
   const style = {
@@ -17,9 +17,8 @@ const TextField = ({
     ...(backgroundColor ? { "--background-color": backgroundColor } : {}),
     ...(backgroundColor ? { "--input-bg": tintedColor } : {}),
     ...(fontColor ? { "--font-color": fontColor } : {}),
-    ...(spacing ? { "--spacing": spacing } : {}),
+    ...(gap ? { "--gap": gap } : {}),
   };
-  console.log(tintedColor);
   return (
     <div className="text-field" style={style}>
       <SearchIcon style={{ color: tintedColor }} />

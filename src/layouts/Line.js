@@ -1,7 +1,18 @@
 import "./Line.css";
 
-export const Line = ({ children, addClass }) => {
-  return <div className={`Line ${addClass || ""}`}>{children}</div>;
+export const Line = ({ children, addClass, backgroundColor, height, gap }) => {
+  console.log(backgroundColor, height, gap);
+  return (
+    <div
+      style={{
+        ...(backgroundColor ? { "--background-color": backgroundColor } : {}),
+        ...(height ? { "--height": height } : {}),
+        ...(gap ? { "--gap": gap } : {}),
+      }}
+      className={`Line ${addClass || ""}`}>
+      {children}
+    </div>
+  );
 };
 
 export const FlexEnd = (props) => {
@@ -13,6 +24,7 @@ export const FlexStart = (props) => {
 };
 
 export const Between = (props) => {
+  console.log(props);
   return <Line {...props} addClass="between" />;
 };
 
