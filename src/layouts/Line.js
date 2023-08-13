@@ -1,7 +1,6 @@
 import "./Line.css";
 
 export const Line = ({ children, addClass, backgroundColor, height, gap }) => {
-  console.log(backgroundColor, height, gap);
   return (
     <div
       style={{

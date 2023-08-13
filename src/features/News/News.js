@@ -8,17 +8,20 @@ import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import { FlexStart } from "../../layouts/Line.js";
 import TextField from "@mui/material/TextField";
+import { setNews } from "./newsSlice.js";
 import "./News.css";
 import ArticleEditor from "../../components/ArticleEditor.js";
 
 function News() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [newsFeed, setNewsFeed] = useState([]);
   const [selectedNews, setSelectedNews] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
   const { stockData } = useSelector((state) => state.search);
-  console.log(stockData.symbol);
+  const { news } = useSelector((state) => state.news);
+  const dispatch = useDispatch();
+  console.log(news);
 
-  const handleSearch = () => {
+  const handleHighlight = () => {
     const phrases = [
       stockData.symbol,
       stockData.displayName,
@@ -68,23 +71,24 @@ function News() {
   const handleSummarize = async () => {
     const response = await searchStocks.summarizeNews(selectedNews);
     console.log(response);
-    setIsModalOpen(true);
   };
 
-  const handleExtract = async (newsUrl) => {
-    const response = await searchStocks.extractNews(newsUrl);
-    console.log(response.articleContent);
-    setIsModalOpen(true);
+  const handleExtract = async (news) => {
+    // dispatch(setNews(newsUrl));
+    // console.log("Hello", newsUrl);
 
-    return;
+    return news;
   };
 
   return (
     <div>
       <Center>
         <div className="Button">
-          <Button className="Button" onClick={handleSearch} variant="contained">
-            Search
+          <Button
+            className="Button"
+            onClick={handleHighlight}
+            variant="contained">
+            highlight
           </Button>
         </div>
       </Center>
@@ -116,7 +120,10 @@ function News() {
                     {news.url}
                   </a>
 
-                  <ArticleEditor url={news.url} />
+                  <ArticleEditor
+                    handleExtract={() => handleExtract(news)}
+                    // onClick={() => handleExtract(news)}
+                  />
                 </div>
               </div>
             ))}

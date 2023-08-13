@@ -69,7 +69,7 @@ export default class searchStocks {
       });
       const data = await response.json();
 
-      return data;
+      return data.articleContent;
     } catch (error) {
       console.error("Error uploading image:", error);
     }

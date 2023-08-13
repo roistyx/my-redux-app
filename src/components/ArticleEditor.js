@@ -4,6 +4,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import searchStocks from "../api/searchStocks.js";
+import { useDispatch, useSelector } from "react-redux";
+import "./ArticleEditor.css";
 const style = {
   position: "absolute",
   top: "50%",
@@ -16,20 +18,20 @@ const style = {
   p: 4,
 };
 
-export default function ArticleEditor({ url }) {
+export default function ArticleEditor({ handleExtract }) {
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  console.log(url);
+  const [articleContent, setArticleContent] = useState("");
+  //   const { news } = useSelector((state) => state.news);
 
-  //   useEffect(() => {
-  //     if (!url) return;
-  //     const handleExtract = async (newsUrl) => {
-  //       const response = await searchStocks.extractNews(newsUrl);
-  //       console.log(response.articleContent);
-  //     };
-  //     handleExtract(url);
-  //   }, [url]);
+  const handleOpen = async () => {
+    const news = await handleExtract();
+    const response = await searchStocks.extractNews(news.url);
+    setArticleContent(response);
+    console.log(response);
+
+    setOpen(true);
+  };
 
   return (
     <div>
@@ -40,12 +42,15 @@ export default function ArticleEditor({ url }) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description">
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
+          <span id="modal-modal-title" variant="h6" component="h2">
+            Edit Article
+          </span>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            <textarea
+              className="scrollable-textarea"
+              defaultValue={articleContent}></textarea>
           </Typography>
+          <Button>Summarize</Button>
         </Box>
       </Modal>
     </div>
