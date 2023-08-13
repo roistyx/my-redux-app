@@ -1,33 +1,61 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-
+import { useDispatch, useSelector } from "react-redux";
 import { Center } from "../../layouts/Line.js";
-// import TextField from "../../components/TextField.js";
 import searchStocks from "../../api/searchStocks.js";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import { FlexStart } from "../../layouts/Line.js";
-
 import TextField from "@mui/material/TextField";
-
 import "./News.css";
+import ArticleEditor from "../../components/ArticleEditor.js";
 
 function News() {
-  const [symbol, setSymbol] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [newsFeed, setNewsFeed] = useState([]);
   const [selectedNews, setSelectedNews] = useState([]);
+  const { stockData } = useSelector((state) => state.search);
+  console.log(stockData.symbol);
 
-  const handleSearch = (event) => {
-    setSymbol(event.target.value);
+  const handleSearch = () => {
+    const phrases = [
+      stockData.symbol,
+      stockData.displayName,
+      `${stockData.displayName}'s`,
+    ];
+    const contents = document.getElementsByClassName("NewsDescription");
+
+    // You should loop through each of the "contents"
+    for (let i = 0; i < contents.length; i++) {
+      const content = contents[i];
+
+      // Clear previous highlights
+      let newText = content.innerHTML.replace(
+        /<span class="highlight">([^<]+)<\/span>/g,
+        "$1"
+      );
+
+      // Iterate over each phrase and highlight its occurrences
+      phrases.forEach((phrase) => {
+        const re = new RegExp(`(${phrase})`, "gi");
+        newText = newText.replace(re, '<span class="highlight">$1</span>');
+      });
+
+      content.innerHTML = newText;
+    }
   };
 
-  const handleSubmit = async () => {
-    // console.log(searchObj);
-    const response = await searchStocks.getStockQuote(symbol);
-    console.log(response.data.feed);
-    setNewsFeed(response.data.feed);
-  };
+  useEffect(() => {
+    if (!stockData.symbol) return;
+    const handleSubmit = async () => {
+      // console.log(searchObj);
+      const response = await searchStocks.getStockNews(stockData.symbol);
+      console.log(response.data.feed);
+      setNewsFeed(response.data.feed);
+    };
+    handleSubmit();
+  }, [stockData.symbol]);
 
   const handleCheckboxChange = (event, summary) => {
     if (event.target.checked) {
@@ -40,21 +68,22 @@ function News() {
   const handleSummarize = async () => {
     const response = await searchStocks.summarizeNews(selectedNews);
     console.log(response);
+    setIsModalOpen(true);
+  };
+
+  const handleExtract = async (newsUrl) => {
+    const response = await searchStocks.extractNews(newsUrl);
+    console.log(response.articleContent);
+    setIsModalOpen(true);
+
+    return;
   };
 
   return (
     <div>
       <Center>
-        <TextField
-          inputProps={{
-            style: { textTransform: "uppercase" },
-          }}
-          sx={{ marginRight: "10px" }}
-          onChange={handleSearch}
-          label="Search"
-        />
         <div className="Button">
-          <Button className="Button" onClick={handleSubmit} variant="contained">
+          <Button className="Button" onClick={handleSearch} variant="contained">
             Search
           </Button>
         </div>
@@ -79,12 +108,16 @@ function News() {
                   />
                 </FlexStart>
                 <div className="NewsTitle">{news.title}</div>
-                <div className="NewsDescription">{news.description}</div>
-                <div className="NewsLink"></div>
-                <div>{news.summary}</div>
-                <a href={news.url} target="_blank">
-                  Link
-                </a>
+                <div id="NewsDescription" className="NewsDescription">
+                  {news.summary}
+                </div>
+                <div className="NewsLink">
+                  <a href={news.url} target="_blank">
+                    {news.url}
+                  </a>
+
+                  <ArticleEditor url={news.url} />
+                </div>
               </div>
             ))}
           </div>

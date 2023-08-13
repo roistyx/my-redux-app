@@ -57,4 +57,21 @@ export default class searchStocks {
       console.log("Error while calling getUserProfile API ", error);
     }
   }
+
+  static async extractNews(url) {
+    try {
+      const response = await fetch("http://localhost:3100/extract", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ url }),
+      });
+      const data = await response.json();
+
+      return data;
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  }
 }

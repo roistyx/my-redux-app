@@ -14,6 +14,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/search" element={<Search />} />
+          <Route path="/news" element={<News />} />
         </Routes>
       </BrowserRouter>
     </div>

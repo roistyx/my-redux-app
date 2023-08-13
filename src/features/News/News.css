@@ -35,3 +35,6 @@
     ); /* Each column takes 50% of container width with a margin of 20px on mobile */
   }
 }
+.highlight {
+  background-color: #ffff00;
+}
