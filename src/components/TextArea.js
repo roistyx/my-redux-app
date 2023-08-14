@@ -11,7 +11,23 @@ export default function MaxHeightTextarea({
   width,
 }) {
   const cleanedText = defaultValue.replace(/\s+/g, " ").trim();
-  console.log(cleanedText);
+  // console.log(cleanedText);
+
+  const searchText =
+    "The retail giant’s customers can now seamlessly incorporate their favorite Starbucks items into their Drive-Up orders,";
+  const largeText = cleanedText;
+
+  function removeBeforeAndKeepAfter(searchText, largeText) {
+    const index = largeText.indexOf(searchText);
+
+    if (index !== -1) {
+      return largeText.substring(index + searchText.length);
+    } else {
+      return "Search text not found!";
+    }
+  }
+
+  console.log(removeBeforeAndKeepAfter(searchText, largeText));
 
   const blue = {
     100: "#DAECFF",
