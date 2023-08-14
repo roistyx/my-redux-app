@@ -5,6 +5,8 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import searchStocks from "../api/searchStocks.js";
 import { useDispatch, useSelector } from "react-redux";
+import TextArea from "../components/TextArea.js";
+
 import "./ArticleEditor.css";
 const style = {
   position: "absolute",
@@ -23,6 +25,7 @@ export default function ArticleEditor({ handleExtract }) {
   const handleClose = () => setOpen(false);
   const [articleContent, setArticleContent] = useState("");
   //   const { news } = useSelector((state) => state.news);
+  console.log(articleContent);
 
   const handleOpen = async () => {
     const news = await handleExtract();
@@ -46,9 +49,12 @@ export default function ArticleEditor({ handleExtract }) {
             Edit Article
           </span>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            <textarea
-              className="scrollable-textarea"
-              defaultValue={articleContent}></textarea>
+            <TextArea
+              defaultValue={articleContent}
+              maxRows={4}
+              ariaLabel="maximum height"
+              placeholder="Maximum 4 rows"
+            />
           </Typography>
           <Button>Summarize</Button>
         </Box>
