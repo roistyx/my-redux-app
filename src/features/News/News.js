@@ -23,6 +23,8 @@ function News() {
     stockData.symbol,
     stockData.displayName,
     `${stockData.displayName}'s`,
+    "buy",
+    "Buy",
   ];
 
   useEffect(() => {

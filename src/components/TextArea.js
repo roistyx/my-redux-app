@@ -1,13 +1,18 @@
 import * as React from "react";
 import { TextareaAutosize } from "@mui/base/TextareaAutosize";
 import { styled } from "@mui/system";
+import _, { replace } from "lodash";
 
 export default function MaxHeightTextarea({
   defaultValue,
   placeholder,
   maxRows,
   ariaLabel,
+  width,
 }) {
+  const cleanedText = defaultValue.replace(/\s+/g, " ").trim();
+  console.log(cleanedText);
+
   const blue = {
     100: "#DAECFF",
     200: "#b6daff",
@@ -32,8 +37,9 @@ export default function MaxHeightTextarea({
 
   const StyledTextarea = styled(TextareaAutosize)(
     ({ theme }) => `
-    width: 320px;
-    font-family: IBM Plex Sans, sans-serif;
+    width: 500px;
+    resize: vertical;
+    font-family: arial;
     font-size: 0.875rem;
     font-weight: 400;
     line-height: 1.5;
@@ -69,7 +75,7 @@ export default function MaxHeightTextarea({
       maxRows={maxRows}
       aria-label={ariaLabel}
       placeholder={placeholder}
-      defaultValue={defaultValue}
+      defaultValue={cleanedText}
     />
   );
 }

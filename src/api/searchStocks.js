@@ -1,11 +1,8 @@
 import axios from "axios";
 export default class searchStocks {
   static async getStockQuote(symbol) {
-    console.log("Get quote called", symbol);
-
     try {
       const response = await axios.get(`http://localhost:3100/quote/${symbol}`);
-      console.log("response", response);
 
       return response;
     } catch (error) {
@@ -14,8 +11,6 @@ export default class searchStocks {
   }
 
   static async getStockData(searchObj) {
-    console.log("getStockData called", searchObj);
-
     try {
       const response = await axios.post(
         "http://localhost:3100/historical",
@@ -35,7 +30,6 @@ export default class searchStocks {
       const response = await axios.get(
         `http://localhost:3100/stock-news/${symbol}`
       );
-      console.log("response", response);
 
       return response;
     } catch (error) {

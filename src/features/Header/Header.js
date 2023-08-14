@@ -7,7 +7,6 @@ import TickerDisplay from "../../components/TickerDisplay.js";
 import "./Header.css";
 
 export default function Header({ backgroundColor, height, gap }) {
-  console.log(backgroundColor);
   const menuItems = [
     { name: "Home", link: "/" },
     { name: "News", link: "/news" },

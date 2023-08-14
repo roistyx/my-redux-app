@@ -10,10 +10,17 @@ import TextArea from "../components/TextArea.js";
 import "./ArticleEditor.css";
 const style = {
   position: "absolute",
-  top: "50%",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+
+  top: "30%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: "60%",
+  height: "60%",
+
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -25,13 +32,11 @@ export default function ArticleEditor({ handleExtract }) {
   const handleClose = () => setOpen(false);
   const [articleContent, setArticleContent] = useState("");
   //   const { news } = useSelector((state) => state.news);
-  console.log(articleContent);
 
   const handleOpen = async () => {
     const news = await handleExtract();
     const response = await searchStocks.extractNews(news.url);
     setArticleContent(response);
-    console.log(response);
 
     setOpen(true);
   };
