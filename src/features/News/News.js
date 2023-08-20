@@ -28,7 +28,6 @@ function News() {
     "Buy",
   ];
 
-  console.log(stockData);
 
   useEffect(() => {
     if (!stockData.symbol) return setNewsFeed([]);
@@ -36,7 +35,6 @@ function News() {
     const searchStock = async () => {
       console.log(stockData.symbol);
       const response = await searchStocks.getStockNews(stockData.symbol);
-      console.log(response.data.feed);
       setNewsFeed(response.data.feed);
     };
     searchStock();
@@ -53,7 +51,6 @@ function News() {
 
   const handleSummarize = async () => {
     const response = await searchStocks.summarizeNews(selectedNews);
-    console.log(response);
   };
 
   return (

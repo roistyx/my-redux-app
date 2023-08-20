@@ -37,6 +37,7 @@ export default function ArticleEditor({ handleExtract }) {
     const news = await handleExtract();
     const response = await searchStocks.extractNews(news.url);
     setArticleContent(response);
+    console.log(Boolean(response));
 
     setOpen(true);
   };
