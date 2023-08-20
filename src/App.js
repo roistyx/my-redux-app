@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
@@ -6,8 +6,18 @@ import Login from "./features/Auth/Login";
 import Header from "./features/Header/Header";
 import Search from "./features/Search/Search";
 import News from "./features/News/News";
+import { useDispatch, useSelector } from "react-redux";
+import { setStockData } from "./features/Search/searchSlice";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const stockData = JSON.parse(localStorage.getItem("stockData"));
+    if (stockData) {
+      dispatch(setStockData(stockData));
+    }
+  }, []);
   return (
     <div className="App">
       <Header backgroundColor="#1976d2" height="50px" gap="6px" />

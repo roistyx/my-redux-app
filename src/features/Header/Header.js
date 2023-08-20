@@ -3,10 +3,12 @@ import { Between } from "../../layouts/Line.js";
 import Menu from "../../components/Menu.js";
 import Search from "../Search/Search.js";
 import TickerDisplay from "../../components/TickerDisplay.js";
-
 import "./Header.css";
 
 export default function Header({ backgroundColor, height, gap }) {
+  const { stockData } = useSelector((state) => state.search);
+  console.log(stockData);
+
   const menuItems = [
     { name: "Home", link: "/" },
     { name: "News", link: "/news" },
@@ -16,9 +18,12 @@ export default function Header({ backgroundColor, height, gap }) {
 
   return (
     <Between backgroundColor={backgroundColor}>
-      <Search backgroundColor={backgroundColor} height={height} gap={gap} />
-      <TickerDisplay style={{ backgroundColor, height }} />
-      <Menu links={menuItems} />
+      {stockData.symbol ? (
+        <TickerDisplay style={{ backgroundColor, height }} />
+      ) : (
+        <Search backgroundColor={backgroundColor} height={height} gap={gap} />
+      )}
+      {stockData.symbol ? <Menu links={menuItems} /> : null}
     </Between>
   );
 }

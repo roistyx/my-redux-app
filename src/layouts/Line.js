@@ -23,7 +23,6 @@ export const FlexStart = (props) => {
 };
 
 export const Between = (props) => {
-  console.log(props);
   return <Line {...props} addClass="between" />;
 };
 

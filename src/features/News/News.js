@@ -17,6 +17,7 @@ function News() {
   const [newsFeed, setNewsFeed] = useState([]);
   const [selectedNews, setSelectedNews] = useState([]);
   const { stockData } = useSelector((state) => state.search);
+  // const [stockData, setStockData] = useState("");
   const { news } = useSelector((state) => state.news);
   const handleExtract = (news) => news;
   const phrases = [
@@ -27,18 +28,22 @@ function News() {
     "Buy",
   ];
 
-  useEffect(() => {
-    if (!stockData.symbol) return;
+  console.log(stockData);
 
-    const handleSubmit = async () => {
+  useEffect(() => {
+    if (!stockData.symbol) return setNewsFeed([]);
+
+    const searchStock = async () => {
+      console.log(stockData.symbol);
       const response = await searchStocks.getStockNews(stockData.symbol);
       console.log(response.data.feed);
       setNewsFeed(response.data.feed);
     };
-    handleSubmit();
-  }, [stockData.symbol]);
+    searchStock();
+  }, [stockData]);
 
   const handleCheckboxChange = (event, summary) => {
+    console.log(event.target.checked);
     if (event.target.checked) {
       setSelectedNews([...selectedNews, summary]);
     } else {

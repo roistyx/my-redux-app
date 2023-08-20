@@ -17,14 +17,20 @@ export const searchSlice = createSlice({
       state.symbol = action.payload;
     },
     setStockData: (state, action) => {
+      localStorage.setItem("stockData", JSON.stringify(action.payload));
       state.stockData = action.payload;
     },
     setDates: (state, action) => {
       state.datesQuery = action.payload;
     },
+    setClearStockData: (state) => {
+      localStorage.removeItem("stockData");
+      state.stockData = [];
+    },
   },
 });
 
-export const { setSearchSymbol, setDates, setStockData } = searchSlice.actions;
+export const { setSearchSymbol, setDates, setStockData, setClearStockData } =
+  searchSlice.actions;
 
 export default searchSlice.reducer;
