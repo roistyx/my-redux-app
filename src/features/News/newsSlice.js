@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   news: "",
+  error: false,
 };
 
 export const newsSlice = createSlice({
@@ -11,9 +12,12 @@ export const newsSlice = createSlice({
     setNews: (state, action) => {
       state.news = action.payload;
     },
+    setError: (state, action) => {
+      state.error = action.payload;
+    },
   },
 });
 
-export const { setNews } = newsSlice.actions;
+export const { setNews, setError } = newsSlice.actions;
 
 export default newsSlice.reducer;

@@ -10,24 +10,23 @@ export default function MaxHeightTextarea({
   ariaLabel,
   width,
 }) {
-  const cleanedText = defaultValue.replace(/\s+/g, " ").trim();
   // console.log(cleanedText);
 
-  const searchText =
-    "The retail giant’s customers can now seamlessly incorporate their favorite Starbucks items into their Drive-Up orders,";
-  const largeText = cleanedText;
+  // const searchText =
+  //   "The retail giant’s customers can now seamlessly incorporate their favorite Starbucks items into their Drive-Up orders,";
+  // const largeText = cleanedText;
 
-  function removeBeforeAndKeepAfter(searchText, largeText) {
-    const index = largeText.indexOf(searchText);
+  // function removeBeforeAndKeepAfter(searchText, largeText) {
+  //   const index = largeText.indexOf(searchText);
 
-    if (index !== -1) {
-      return largeText.substring(index + searchText.length);
-    } else {
-      return "Search text not found!";
-    }
-  }
+  //   if (index !== -1) {
+  //     return largeText.substring(index + searchText.length);
+  //   } else {
+  //     return "Search text not found!";
+  //   }
+  // }
 
-  console.log(removeBeforeAndKeepAfter(searchText, largeText));
+  // console.log(removeBeforeAndKeepAfter(searchText, largeText));
 
   const blue = {
     100: "#DAECFF",
@@ -91,7 +90,7 @@ export default function MaxHeightTextarea({
       maxRows={maxRows}
       aria-label={ariaLabel}
       placeholder={placeholder}
-      defaultValue={cleanedText}
+      defaultValue={defaultValue}
     />
   );
 }

@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import searchStocks from "../api/searchStocks.js";
-import { useDispatch, useSelector } from "react-redux";
 import TextArea from "../components/TextArea.js";
-
+import AlertComponent from "./AlertComponent.js";
+import Loader from "./Loader.js";
 import "./ArticleEditor.css";
+import { Link } from "react-router-dom";
+
 const style = {
   position: "absolute",
   display: "flex",
@@ -31,20 +33,38 @@ export default function ArticleEditor({ handleExtract }) {
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const [articleContent, setArticleContent] = useState("");
-  //   const { news } = useSelector((state) => state.news);
+  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [news, setNews] = useState("");
 
   const handleOpen = async () => {
-    const news = await handleExtract();
-    const response = await searchStocks.extractNews(news.url);
-    setArticleContent(response);
-    console.log(Boolean(response));
+    setIsLoading(true);
+    try {
+      const news = await handleExtract();
+      setNews(news);
+      if (!news || !news.url) {
+        setNews("");
+        throw new Error("News extraction failed or no URL provided.");
+      }
 
-    setOpen(true);
+      const response = await searchStocks.extractNews(news.url);
+
+      if (!response) {
+        setError(true);
+      }
+
+      setArticleContent(response);
+      setIsLoading(false);
+      setOpen(true);
+    } catch (error) {
+      console.error("Error in handleOpen:", error.message);
+    }
   };
 
   return (
     <div>
       <Button onClick={handleOpen}>Extract</Button>
+      {isLoading ? <Loader /> : null}
       <Modal
         open={open}
         onClose={handleClose}
@@ -55,11 +75,19 @@ export default function ArticleEditor({ handleExtract }) {
             Edit Article
           </span>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            {error ? (
+              <AlertComponent severity="error">
+                {"The article could not be extracted. Please go to website."}
+                <Link to={news.url} target="_blank" rel="noreferrer">
+                  Link
+                </Link>
+              </AlertComponent>
+            ) : null}
             <TextArea
               defaultValue={articleContent}
               maxRows={4}
               ariaLabel="maximum height"
-              placeholder="Maximum 4 rows"
+              placeholder="Summarize here"
             />
           </Typography>
           <Button>Summarize</Button>
