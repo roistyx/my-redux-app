@@ -37,18 +37,16 @@ export default class searchStocks {
     }
   }
 
-  static async summarizeNews(selectedNews) {
-    console.log("summarizeNews called", selectedNews);
-
+  static async summarizeNews(article) {
     try {
       const response = await axios.post(
         "http://localhost:3100/summarize",
-        selectedNews
+        article
       );
-
-      return response;
+      return response.data;
     } catch (error) {
-      console.log("Error while calling getUserProfile API ", error);
+      console.error("Error while calling summarizeNews API:", error);
+      throw error; // Propagate the error for better error handling at the caller's side
     }
   }
 

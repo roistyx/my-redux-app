@@ -61,6 +61,17 @@ export default function ArticleEditor({ handleExtract }) {
     }
   };
 
+  const handleSummarize = async () => {
+    try {
+      const { data } = await searchStocks.summarizeNews({
+        content: articleContent,
+      });
+      console.log(data);
+    } catch (error) {
+      console.error("Summarization Error:", error.message);
+    }
+  };
+
   return (
     <div>
       <Button onClick={handleOpen}>Extract</Button>
@@ -90,7 +101,7 @@ export default function ArticleEditor({ handleExtract }) {
               placeholder="Summarize here"
             />
           </Typography>
-          <Button>Summarize</Button>
+          <Button onClick={handleSummarize}>Summarize</Button>
         </Box>
       </Modal>
     </div>
