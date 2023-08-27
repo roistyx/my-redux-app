@@ -17,8 +17,7 @@ function News() {
   const [newsFeed, setNewsFeed] = useState([]);
   const [selectedNews, setSelectedNews] = useState([]);
   const { stockData } = useSelector((state) => state.search);
-  // const [stockData, setStockData] = useState("");
-  const { news } = useSelector((state) => state.news);
+
   const handleExtract = (news) => news;
   const phrases = [
     stockData.symbol,
@@ -27,7 +26,6 @@ function News() {
     "buy",
     "Buy",
   ];
-
 
   useEffect(() => {
     if (!stockData.symbol) return setNewsFeed([]);

@@ -43,7 +43,7 @@ export default class searchStocks {
         "http://localhost:3100/summarize",
         article
       );
-      return response.data;
+      return response;
     } catch (error) {
       console.error("Error while calling summarizeNews API:", error);
       throw error; // Propagate the error for better error handling at the caller's side

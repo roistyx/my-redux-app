@@ -9,6 +9,7 @@ export default function MaxHeightTextarea({
   maxRows,
   ariaLabel,
   width,
+  onChange,
 }) {
   // console.log(cleanedText);
 
@@ -91,6 +92,7 @@ export default function MaxHeightTextarea({
       aria-label={ariaLabel}
       placeholder={placeholder}
       defaultValue={defaultValue}
+      onChange={onChange}
     />
   );
 }

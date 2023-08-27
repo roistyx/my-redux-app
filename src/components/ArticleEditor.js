@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -36,8 +37,10 @@ export default function ArticleEditor({ handleExtract }) {
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [news, setNews] = useState("");
+  const { stockData } = useSelector((state) => state.search);
 
   const handleOpen = async () => {
+    console.log("handleOpen");
     setIsLoading(true);
     try {
       const news = await handleExtract();
@@ -62,10 +65,19 @@ export default function ArticleEditor({ handleExtract }) {
   };
 
   const handleSummarize = async () => {
+    if (!articleContent) return;
+    if (articleContent) setError(false);
+
     try {
       const { data } = await searchStocks.summarizeNews({
         content: articleContent,
+        symbol: stockData.symbol,
+        price: stockData.regularMarketPrice,
+        time: stockData.regularMarketTime,
+        url: news.url,
       });
+
+      setArticleContent(data.content);
       console.log(data);
     } catch (error) {
       console.error("Summarization Error:", error.message);
@@ -94,11 +106,11 @@ export default function ArticleEditor({ handleExtract }) {
                 </Link>
               </AlertComponent>
             ) : null}
-            <TextArea
-              defaultValue={articleContent}
-              maxRows={4}
-              ariaLabel="maximum height"
-              placeholder="Summarize here"
+            <textarea
+              value={articleContent}
+              rows="5"
+              cols="50"
+              onChange={(e) => setArticleContent(e.target.value)}
             />
           </Typography>
           <Button onClick={handleSummarize}>Summarize</Button>
