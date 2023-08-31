@@ -1,0 +1,16 @@
+.link-button {
+  margin: 0 0 0 10px;
+  display: inline-block;
+  padding: 4px 8px;
+  background-color: #007bff;
+  color: #ffffff;
+  font-size: 0.8rem;
+  text-decoration: none;
+  border-radius: 4px;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.link-button:hover {
+  background-color: #0056b3;
+}

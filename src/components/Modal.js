@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from "react";
+import "./Modal.css";
 
-function Modal({ openModal, closeModal, children }) {
+function Modal({ openModal, closeModal, children, articleContent }) {
   const ref = useRef();
+  console.log(articleContent);
 
   useEffect(() => {
     if (openModal) {
@@ -12,9 +14,11 @@ function Modal({ openModal, closeModal, children }) {
   }, [openModal]);
 
   return (
-    <dialog ref={ref} onCancel={closeModal}>
+    <dialog className="modal" ref={ref} onCancel={closeModal}>
       {children}
-      <button onClick={closeModal}>Close</button>
+      <button className="close-button" onClick={closeModal}>
+        x
+      </button>
     </dialog>
   );
 }

@@ -1,36 +1,16 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-// import Modal from "@mui/material/Modal";
 import searchStocks from "../api/searchStocks.js";
-import TextArea from "../components/TextArea.js";
 import AlertComponent from "./AlertComponent.js";
 import Loader from "./Loader.js";
 import "./ArticleEditor.css";
 import { Link } from "react-router-dom";
 import Modal from "./Modal";
-
-const style = {
-  position: "absolute",
-  textAlign: "center",
-
-  top: "30%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "60%",
-  height: "60%",
-
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import LinkButton from "../elements/LinkButton.js";
 
 export default function ArticleEditor({ handleExtract }) {
-  const [open, setOpen] = useState(false);
-  const handleClose = () => setOpen(false);
   const [articleContent, setArticleContent] = useState("");
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -58,7 +38,7 @@ export default function ArticleEditor({ handleExtract }) {
 
       setArticleContent(response);
       setIsLoading(false);
-      setOpen(true);
+      setModal(true);
     } catch (error) {
       console.error("Error in handleOpen:", error.message);
     }
@@ -86,43 +66,43 @@ export default function ArticleEditor({ handleExtract }) {
 
   return (
     <>
-      <button onClick={() => setModal(true)}>Open modal</button>
+      <button onClick={handleOpen}>Open modal</button>
+      {isLoading ? <Loader /> : null}
       <Modal openModal={modal} closeModal={() => setModal(false)}>
-        Modal content.
+        <span id="modal-modal-title">Edit Article </span>{" "}
+        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          {" "}
+          {error ? (
+            <AlertComponent severity="error">
+              {"The article could not be extracted. Please go to website."}
+
+              <LinkButton url={news.url}>Visit Site</LinkButton>
+            </AlertComponent>
+          ) : (
+            <AlertComponent severity="success">
+              {
+                "Article extracted with success! Yet, for the finest details, consider a direct copy/paste from the original."
+              }
+              <Link
+                component="button"
+                to={news.url}
+                target="_blank"
+                rel="noreferrer">
+                Link
+              </Link>
+            </AlertComponent>
+          )}
+          <div className="textarea-wrapper">
+            <textarea
+              className="scrollable-textarea"
+              value={articleContent}
+              rows="20"
+              onChange={(e) => setArticleContent(e.target.value)}
+            />
+          </div>
+        </Typography>
+        <Button onClick={handleSummarize}>Summarize</Button>
       </Modal>
     </>
-    // <div>
-    //   <Button onClick={handleOpen}>Extract</Button>
-    //   {isLoading ? <Loader /> : null}
-    //   <Modal
-    //     open={open}
-    //     onClose={handleClose}
-    //     aria-labelledby="modal-modal-title"
-    //     aria-describedby="modal-modal-description">
-    //     <Box sx={style}>
-    //       <span id="modal-modal-title" >
-    //         Edit Article
-    //       </span>
-    //       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-    //         {error ? (
-    //           <AlertComponent severity="error">
-    //             {"The article could not be extracted. Please go to website."}
-    //             <Link to={news.url} target="_blank" rel="noreferrer">
-    //               Link
-    //             </Link>
-    //           </AlertComponent>
-    //         ) : null}
-    //         <textarea
-    //           className="scrollable-textarea"
-    //           value={articleContent}
-    //           rows="5"
-    //           cols="50"
-    //           onChange={(e) => setArticleContent(e.target.value)}
-    //         />
-    //       </Typography>
-    //       <Button onClick={handleSummarize}>Summarize</Button>
-    //     </Box>
-    //   </Modal>
-    // </div>
   );
 }

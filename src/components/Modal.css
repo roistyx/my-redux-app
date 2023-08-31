@@ -1,0 +1,38 @@
+.modal::backdrop {
+  background: rgba(89, 88, 88, 0.5);
+}
+
+.modal {
+  width: 50%;
+  height: 55%;
+  max-width: 600px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.close-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px; /* Set width and height to create a perfect circle */
+  height: 20px;
+  /* padding: 4px; */
+  margin: 10px;
+  cursor: pointer;
+  border: none;
+  background-color: #ccc;
+  border-radius: 50%;
+
+  cursor: pointer; /* Change cursor on hover */
+  color: #000; /* Initial font color */
+  transition: background-color 0.5s ease, color 0.5s ease; /* Transition for both background-color and font color */
+
+  /* Optional: add some hover effect */
+}
+.close-button:hover {
+  background-color: #aaa;
+  transition: background-color 0.5s ease;
+  color: #fff;
+}
