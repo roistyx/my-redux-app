@@ -66,4 +66,18 @@ export default class searchStocks {
       console.error("Error uploading image:", error);
     }
   }
+
+  static async saveStockArticle(article) {
+    console.log("saveStockArticle called", article);
+    try {
+      const response = await axios.post(
+        "http://localhost:3100/save-article",
+        article
+      );
+      return response;
+    } catch (error) {
+      console.error("Error while calling saveStockArticle API:", error);
+      throw error; // Propagate the error for better error handling at the caller's side
+    }
+  }
 }

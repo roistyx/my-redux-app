@@ -64,6 +64,21 @@ export default function ArticleEditor({ handleExtract }) {
     }
   };
 
+  const handleSave = async () => {
+    try {
+      const response = await searchStocks.saveStockArticle({
+        content: articleContent,
+        symbol: stockData.symbol,
+        price: stockData.regularMarketPrice,
+        time: stockData.regularMarketTime,
+        url: news.url,
+      });
+      console.log(response);
+    } catch (error) {
+      console.error("Error while saving article:", error.message);
+    }
+  };
+
   return (
     <>
       <button onClick={handleOpen}>Open modal</button>
@@ -102,6 +117,7 @@ export default function ArticleEditor({ handleExtract }) {
           </div>
         </Typography>
         <Button onClick={handleSummarize}>Summarize</Button>
+        <Button onClick={handleSave}>Save</Button>
       </Modal>
     </>
   );
