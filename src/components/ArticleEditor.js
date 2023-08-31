@@ -1,22 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
+// import Modal from "@mui/material/Modal";
 import searchStocks from "../api/searchStocks.js";
 import TextArea from "../components/TextArea.js";
 import AlertComponent from "./AlertComponent.js";
 import Loader from "./Loader.js";
 import "./ArticleEditor.css";
 import { Link } from "react-router-dom";
+import Modal from "./Modal";
 
 const style = {
   position: "absolute",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
+  textAlign: "center",
 
   top: "30%",
   left: "50%",
@@ -38,6 +36,8 @@ export default function ArticleEditor({ handleExtract }) {
   const [isLoading, setIsLoading] = useState(false);
   const [news, setNews] = useState("");
   const { stockData } = useSelector((state) => state.search);
+
+  const [modal, setModal] = useState(false);
 
   const handleOpen = async () => {
     console.log("handleOpen");
@@ -85,37 +85,44 @@ export default function ArticleEditor({ handleExtract }) {
   };
 
   return (
-    <div>
-      <Button onClick={handleOpen}>Extract</Button>
-      {isLoading ? <Loader /> : null}
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description">
-        <Box sx={style}>
-          <span id="modal-modal-title" variant="h6" component="h2">
-            Edit Article
-          </span>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {error ? (
-              <AlertComponent severity="error">
-                {"The article could not be extracted. Please go to website."}
-                <Link to={news.url} target="_blank" rel="noreferrer">
-                  Link
-                </Link>
-              </AlertComponent>
-            ) : null}
-            <textarea
-              value={articleContent}
-              rows="5"
-              cols="50"
-              onChange={(e) => setArticleContent(e.target.value)}
-            />
-          </Typography>
-          <Button onClick={handleSummarize}>Summarize</Button>
-        </Box>
+    <>
+      <button onClick={() => setModal(true)}>Open modal</button>
+      <Modal openModal={modal} closeModal={() => setModal(false)}>
+        Modal content.
       </Modal>
-    </div>
+    </>
+    // <div>
+    //   <Button onClick={handleOpen}>Extract</Button>
+    //   {isLoading ? <Loader /> : null}
+    //   <Modal
+    //     open={open}
+    //     onClose={handleClose}
+    //     aria-labelledby="modal-modal-title"
+    //     aria-describedby="modal-modal-description">
+    //     <Box sx={style}>
+    //       <span id="modal-modal-title" >
+    //         Edit Article
+    //       </span>
+    //       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+    //         {error ? (
+    //           <AlertComponent severity="error">
+    //             {"The article could not be extracted. Please go to website."}
+    //             <Link to={news.url} target="_blank" rel="noreferrer">
+    //               Link
+    //             </Link>
+    //           </AlertComponent>
+    //         ) : null}
+    //         <textarea
+    //           className="scrollable-textarea"
+    //           value={articleContent}
+    //           rows="5"
+    //           cols="50"
+    //           onChange={(e) => setArticleContent(e.target.value)}
+    //         />
+    //       </Typography>
+    //       <Button onClick={handleSummarize}>Summarize</Button>
+    //     </Box>
+    //   </Modal>
+    // </div>
   );
 }
