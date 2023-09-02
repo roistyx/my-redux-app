@@ -11,14 +11,15 @@ import TextField from "@mui/material/TextField";
 import { setNews } from "./newsSlice.js";
 import "./News.css";
 import ArticleEditor from "../../components/ArticleEditor.js";
-import handleHighlight from "../../helpers/handleHighlight.js";
+// import handleHighlight from "../../helpers/handleHighlight.js";
 
 function News() {
   const [newsFeed, setNewsFeed] = useState([]);
   const [selectedNews, setSelectedNews] = useState([]);
+  const [highlightedNews, setHighlightedNews] = useState([]);
   const { stockData } = useSelector((state) => state.search);
-
   const handleExtract = (news) => news;
+
   const phrases = [
     stockData.symbol,
     stockData.displayName,
@@ -26,6 +27,28 @@ function News() {
     "buy",
     "Buy",
   ];
+
+  const handleHighlight = () => {
+    setHighlightedNews(!highlightedNews);
+  };
+
+  // const handleHighlight = () => {};
+
+  const shouldHighlight = (word, phrases) => {
+    return phrases.some((phrase) =>
+      word.toLowerCase().includes(phrase.toLowerCase())
+    );
+  };
+
+  const processTextForHighlight = (text, phrases) => {
+    return text.split(/\s+/).map((word) => {
+      if (shouldHighlight(word, phrases)) {
+        return { type: "highlight", content: word + " " };
+      } else {
+        return { type: "text", content: word };
+      }
+    });
+  };
 
   useEffect(() => {
     if (!stockData.symbol) return setNewsFeed([]);
@@ -57,9 +80,9 @@ function News() {
         <div className="Button">
           <Button
             className="Button"
-            onClick={() => handleHighlight(phrases)}
+            onClick={() => handleHighlight()}
             variant="contained">
-            highlight
+            {highlightedNews ? "Highlight" : "Un-Highlight"}
           </Button>
         </div>
       </Center>
@@ -83,16 +106,32 @@ function News() {
                   />
                 </FlexStart>
                 <div className="news-title">{news.title}</div>
-                <div className="news-summary">{news.summary}</div>
+                <div className="news-summary">
+                  {!highlightedNews ? (
+                    processTextForHighlight(news.summary, phrases).map(
+                      (segment, index) => {
+                        if (segment.type === "highlight") {
+                          return (
+                            <span key={index} className="highlight">
+                              {segment.content}
+                            </span>
+                          );
+                        } else {
+                          return <span key={index}>{segment.content} </span>;
+                        }
+                      }
+                    )
+                  ) : (
+                    <span>{news.summary}</span>
+                  )}
+                </div>
+
                 <div className="NewsLink">
                   <a href={news.url} target="_blank">
                     {news.url}
                   </a>
 
-                  <ArticleEditor
-                    handleExtract={() => handleExtract(news)}
-                    // onClick={() => handleExtract(news)}
-                  />
+                  <ArticleEditor handleExtract={() => handleExtract(news)} />
                 </div>
               </div>
             ))}
