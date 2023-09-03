@@ -38,8 +38,24 @@ export const Rows = (props) => {
   return <Line {...props} addClass="rows" />;
 };
 
-export const AlignStart = ({ children }) => {
-  return <div className="AlignStart">{children}</div>;
+export const AlignStart = ({
+  children,
+  addClass,
+  backgroundColor,
+  height,
+  gap,
+}) => {
+  return (
+    <div
+      style={{
+        ...(backgroundColor ? { "--background-color": backgroundColor } : {}),
+        ...(height ? { "--height": height } : {}),
+        ...(gap ? { "--gap": gap } : {}),
+      }}
+      className="AlignStart">
+      {children}
+    </div>
+  );
 };
 
 export const AlignCenter = ({ children }) => {

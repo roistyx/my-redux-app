@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import searchStocks from "../api/searchStocks.js";
 import AlertComponent from "./AlertComponent.js";
@@ -9,6 +9,7 @@ import "./ArticleEditor.css";
 import { Link } from "react-router-dom";
 import Modal from "./Modal";
 import LinkButton from "../elements/LinkButton.js";
+import Button from "../elements/Button.js";
 
 export default function ArticleEditor({ handleExtract }) {
   const [articleContent, setArticleContent] = useState("");
@@ -81,8 +82,14 @@ export default function ArticleEditor({ handleExtract }) {
 
   return (
     <>
-      <button onClick={handleOpen}>Open modal</button>
-      {isLoading ? <Loader /> : null}
+      <div>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          // <button onClick={handleOpen}>Review Article</button>
+          <Button onClick={handleOpen}>Review Article</Button>
+        )}
+      </div>
       <Modal openModal={modal} closeModal={() => setModal(false)}>
         <span id="modal-modal-title">Edit Article </span>{" "}
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>

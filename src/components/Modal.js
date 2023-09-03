@@ -3,7 +3,6 @@ import "./Modal.css";
 
 function Modal({ openModal, closeModal, children, articleContent }) {
   const ref = useRef();
-  console.log(articleContent);
 
   useEffect(() => {
     if (openModal) {

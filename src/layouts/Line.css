@@ -38,6 +38,7 @@
 
 .AlignStart {
   align-self: flex-start;
+  padding: var(--gap);
 }
 
 .AlignCenter {

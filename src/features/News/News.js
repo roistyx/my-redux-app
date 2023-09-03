@@ -7,11 +7,10 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import { FlexStart } from "../../layouts/Line.js";
-import TextField from "@mui/material/TextField";
-import { setNews } from "./newsSlice.js";
 import "./News.css";
+import ToggleSwitch from "../../elements/ToggleSwitch.js";
 import ArticleEditor from "../../components/ArticleEditor.js";
-// import handleHighlight from "../../helpers/handleHighlight.js";
+import { AlignStart } from "../../layouts/Line.js";
 
 function News() {
   const [newsFeed, setNewsFeed] = useState([]);
@@ -28,11 +27,9 @@ function News() {
     "Buy",
   ];
 
-  const handleHighlight = () => {
+  const handleToggle = () => {
     setHighlightedNews(!highlightedNews);
   };
-
-  // const handleHighlight = () => {};
 
   const shouldHighlight = (word, phrases) => {
     return phrases.some((phrase) =>
@@ -76,16 +73,10 @@ function News() {
 
   return (
     <div>
-      <Center>
-        <div className="Button">
-          <Button
-            className="Button"
-            onClick={() => handleHighlight()}
-            variant="contained">
-            {highlightedNews ? "Highlight" : "Un-Highlight"}
-          </Button>
-        </div>
-      </Center>
+      <AlignStart gap="5px 0 0 5px">
+        <ToggleSwitch label="Highlight" handleToggle={handleToggle} />
+      </AlignStart>
+
       <Center>
         <Box>
           <Button variant="text" onClick={handleSummarize}>
@@ -107,7 +98,9 @@ function News() {
                 </FlexStart>
                 <div className="news-title">{news.title}</div>
                 <div className="news-summary">
-                  {!highlightedNews ? (
+                  {highlightedNews ? (
+                    <span>{news.summary}</span>
+                  ) : (
                     processTextForHighlight(news.summary, phrases).map(
                       (segment, index) => {
                         if (segment.type === "highlight") {
@@ -121,8 +114,6 @@ function News() {
                         }
                       }
                     )
-                  ) : (
-                    <span>{news.summary}</span>
                   )}
                 </div>
 

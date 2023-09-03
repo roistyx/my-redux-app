@@ -11,7 +11,7 @@ const TextField = ({
   fontColor,
   gap,
 }) => {
-  const tintedColor = chroma(backgroundColor).brighten(1).hex();
+  const tintedColor = chroma(backgroundColor).brighten(1);
   const style = {
     ...(textTransform ? { "--text-transform": textTransform } : {}),
     ...(backgroundColor ? { "--background-color": backgroundColor } : {}),

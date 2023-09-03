@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Login from "./features/Auth/Login";
 import Header from "./features/Header/Header";
-import Search from "./features/Search/Search";
+import SearchDatesRange from "./features/Search/SearchDatesRange";
 import News from "./features/News/News";
 import { useDispatch, useSelector } from "react-redux";
 import { setStockData } from "./features/Search/searchSlice";
@@ -23,7 +23,7 @@ function App() {
       <Header backgroundColor="#1976d2" height="50px" gap="6px" />
       <BrowserRouter>
         <Routes>
-          <Route path="/search" element={<Search />} />
+          <Route path="/search" element={<SearchDatesRange />} />
           <Route path="/news" element={<News />} />
         </Routes>
       </BrowserRouter>

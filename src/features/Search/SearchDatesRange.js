@@ -5,8 +5,8 @@ import searchStocks from "../../api/searchStocks.js";
 import DatesPicker from "../../components/DatesPicker.js";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchSymbol, setDates, setStockData } from "./searchSlice.js";
+
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
 
 import TextField from "@mui/material/TextField";
 
@@ -15,7 +15,7 @@ import "./Search.css";
 function SearchDatesRange() {
   const dispatch = useDispatch();
   const [dates, setDates] = useState("");
-  const { symbol } = useSelector((state) => state.search);
+  const { stockData } = useSelector((state) => state.search);
 
   const handleSearch = async (event) => {
     if (event.key === "Enter") {
@@ -32,7 +32,7 @@ function SearchDatesRange() {
 
   const handleSubmit = async () => {
     const searchObj = {
-      searchQuery: search,
+      searchQuery: stockData.symbol,
       startMonth: dates[0].$M + 1,
       startDate: dates[0].$D,
       startYear: dates[0].$y,
@@ -48,20 +48,17 @@ function SearchDatesRange() {
   return (
     <div>
       <Center>
-        <TextField
+        {/* <TextField
           onKeyDown={handleSearch}
           label="Search"
           inputProps={{
             style: { textTransform: "uppercase" },
           }}
           sx={{ marginRight: "10px" }}
-        />
+        /> */}
         <DatesPicker onChange={handleDatesPick} />
         <div className="Button">
-          <Button
-            className="Button"
-            onKeyDown={handleSubmit}
-            variant="contained">
+          <Button className="Button" onClick={handleSubmit} variant="contained">
             Search
           </Button>
         </div>

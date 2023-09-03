@@ -14,11 +14,12 @@
 
 .close-button {
   position: absolute;
+  font-size: small;
   top: 0;
   left: 0;
-  width: 20px; /* Set width and height to create a perfect circle */
+  width: 20px;
   height: 20px;
-  /* padding: 4px; */
+  padding: 1px;
   margin: 10px;
   cursor: pointer;
   border: none;
