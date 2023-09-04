@@ -5,10 +5,10 @@ import searchStocks from "../../api/searchStocks.js";
 import DatesPicker from "../../components/DatesPicker.js";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchSymbol, setDates, setStockData } from "./searchSlice.js";
+import LineChartComponent from "../../components/LineChartComponent.js";
+import { Box } from "../../layouts/Box.js";
 
 import Button from "@mui/material/Button";
-
-import TextField from "@mui/material/TextField";
 
 import "./Search.css";
 
@@ -41,8 +41,8 @@ function SearchDatesRange() {
       endYear: dates[1].$y,
     };
     const response = await searchStocks.getStockData(searchObj);
-    dispatch(setStockData(response.data));
-    console.log(response.data);
+
+    console.log(response);
   };
 
   return (
@@ -62,6 +62,9 @@ function SearchDatesRange() {
             Search
           </Button>
         </div>
+      </Center>
+      <Center>
+        <LineChartComponent />
       </Center>
     </div>
   );

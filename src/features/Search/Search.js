@@ -5,16 +5,12 @@ import searchStocks from "../../api/searchStocks.js";
 import DatesPicker from "../../components/DatesPicker.js";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchSymbol, setDates, setStockData } from "./searchSlice.js";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-
-// import TextField from "@mui/material/TextField";
-
+import Loader from "../../components/Loader.js";
 import "./Search.css";
 
 function Search({ backgroundColor, height, gap }) {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
 
   const handleSearch = async (event) => {
@@ -32,15 +28,21 @@ function Search({ backgroundColor, height, gap }) {
   };
 
   return (
-    <TextField
-      onKeyDown={handleSearch}
-      label="Search..."
-      textTransform={isTyping ? "uppercase" : "none"}
-      backgroundColor={backgroundColor}
-      height={height}
-      gap={gap}
-      fontColor="white"
-    />
+    <>
+      {!isLoading ? (
+        <TextField
+          onKeyDown={handleSearch}
+          label="Search..."
+          textTransform={isTyping ? "uppercase" : "none"}
+          backgroundColor={backgroundColor}
+          height={height}
+          gap={gap}
+          fontColor="white"
+        />
+      ) : (
+        <Loader color={"secondary"} />
+      )}
+    </>
   );
 }
 

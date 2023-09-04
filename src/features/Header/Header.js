@@ -17,7 +17,7 @@ export default function Header({ backgroundColor, height, gap }) {
   ];
 
   return (
-    <Between backgroundColor={backgroundColor}>
+    <Between gap="0" backgroundColor={backgroundColor}>
       {stockData.symbol ? (
         <TickerDisplay style={{ backgroundColor, height }} />
       ) : (

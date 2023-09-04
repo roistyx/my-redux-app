@@ -16,6 +16,7 @@ export default class searchStocks {
         "http://localhost:3100/historical",
         searchObj
       );
+      console.log(response.data);
 
       return response.data;
     } catch (error) {

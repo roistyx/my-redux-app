@@ -12,7 +12,11 @@ export default function BasicDateRangeField({ onChange }) {
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer
         components={["MultiInputDateRangeField", "SingleInputDateRangeField"]}>
-        <SingleInputDateRangeField onChange={onChange} label="Start - End" />
+        <SingleInputDateRangeField
+          type="text"
+          onChange={onChange}
+          label="Start - End"
+        />
       </DemoContainer>
     </LocalizationProvider>
   );
