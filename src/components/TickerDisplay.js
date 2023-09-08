@@ -18,7 +18,7 @@ function TickerDisplay({ style: { backgroundColor } }) {
   };
   const { stockData } = useSelector((state) => state.search);
   function price() {
-    return Number.parseFloat(stockData.regularMarketChangePercent).toFixed(2);
+    return Number.parseFloat(stockData.previousClose).toFixed(2);
   }
 
   const handleClearStockData = (e) => {
@@ -29,8 +29,8 @@ function TickerDisplay({ style: { backgroundColor } }) {
   return (
     <div style={style} className="ticker">
       <h1>{stockData.displayName}</h1>
-      <h2>{stockData.regularMarketPrice}</h2>
-      <h3>{price()}%</h3>
+      <h2>{stockData.previousClose}</h2>
+      {/* <h3>{price()}%</h3> */}
       <IconButton
         aria-label="clear"
         color="primary"

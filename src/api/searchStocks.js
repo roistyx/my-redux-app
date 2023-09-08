@@ -1,26 +1,37 @@
 import axios from "axios";
 export default class searchStocks {
+  constructor() {
+    this.retries = 5;
+  }
+
   static async getStockQuote(symbol) {
     try {
       const response = await axios.get(`http://localhost:3100/quote/${symbol}`);
-
+      console.log(response);
       return response;
     } catch (error) {
-      console.log("Error while calling getUserProfile API ", error);
+      console.log("Error while getting quotes ", error);
     }
   }
 
-  static async getStockData(searchObj) {
+  static async getStockData(searchObj, interval) {
+    console.log("Interval", interval);
     try {
       const response = await axios.post(
         "http://localhost:3100/historical",
-        searchObj
+        searchObj,
+        {
+          params: {
+            interval: interval,
+          },
+        }
       );
       console.log(response.data);
 
       return response.data;
     } catch (error) {
-      console.log("Error while calling getUserProfile API ", error);
+      console.log("Error while getting historical data API ", error);
+      return false;
     }
   }
 

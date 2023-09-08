@@ -3,10 +3,10 @@ import { Line } from "react-chartjs-2";
 // import { Chart, CategoryScale, LinearScale } from "chart.js";
 import Chart from "chart.js/auto";
 
-function LineChartComponent() {
-  // Chart.register(CategoryScale, LinearScale);
+function LineChartComponent({ chartData }) {
+  console.log(chartData.date);
   const data = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    labels: chartData.date,
     datasets: [
       {
         label: "Monthly Sales Data",
@@ -27,7 +27,7 @@ function LineChartComponent() {
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: [65, 59, 80, 81, 56, 55, 40],
+        data: chartData.close,
       },
     ],
   };
