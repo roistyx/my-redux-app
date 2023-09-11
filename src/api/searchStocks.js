@@ -5,12 +5,25 @@ export default class searchStocks {
   }
 
   static async getStockQuote(symbol) {
+    console.log("getStockQuote called", symbol);
+    function formatDate(year, month, day) {
+      return `${year.toString().padStart(4, "0")}-${month
+        .toString()
+        .padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
+    }
+
+    const date = formatDate(new Date().getFullYear(), 1, 1);
+
     try {
-      const response = await axios.get(`http://localhost:3100/quote/${symbol}`);
-      console.log(response);
-      return response;
+      // Fetch daily open-close data
+      const response = await axios.get(
+        `http://localhost:3100/stock-data/${symbol}/${date}`
+      );
+
+      return response.data;
     } catch (error) {
       console.log("Error while getting quotes ", error);
+      return null; // or throw the error if you want it to be handled by the caller
     }
   }
 

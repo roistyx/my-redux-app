@@ -7,7 +7,7 @@ import "./Header.css";
 
 export default function Header({ backgroundColor, height, gap }) {
   const { stockData } = useSelector((state) => state.search);
-  console.log(stockData);
+  console.log(stockData.symbol);
 
   const menuItems = [
     { name: "Home", link: "/" },

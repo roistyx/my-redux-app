@@ -28,8 +28,8 @@ function TickerDisplay({ style: { backgroundColor } }) {
 
   return (
     <div style={style} className="ticker">
-      <h1>{stockData.displayName}</h1>
-      <h2>{stockData.previousClose}</h2>
+      <h1>{stockData.company_name}</h1>
+      <h2>{"$" + stockData.previous_close}</h2>
       {/* <h3>{price()}%</h3> */}
       <IconButton
         aria-label="clear"
