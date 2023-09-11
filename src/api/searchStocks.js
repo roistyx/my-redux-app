@@ -27,17 +27,13 @@ export default class searchStocks {
     }
   }
 
-  static async getStockData(searchObj, interval) {
-    console.log("Interval", interval);
+  static async getStockData(searchObj, multiplier, interval) {
+    searchObj.interval = interval;
+    searchObj.multiplier = multiplier;
     try {
       const response = await axios.post(
         "http://localhost:3100/historical",
-        searchObj,
-        {
-          params: {
-            interval: interval,
-          },
-        }
+        searchObj
       );
       console.log(response.data);
 

@@ -38,7 +38,7 @@ function SearchDatesRange() {
       endYear: dates[1].$y,
     };
     try {
-      const response = await searchStocks.getStockData(searchObj, "1wk");
+      const response = await searchStocks.getStockData(searchObj, "1", "month");
       if (response === false) {
         return setError(true);
       }
