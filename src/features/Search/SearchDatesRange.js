@@ -37,28 +37,54 @@ function SearchDatesRange() {
       endDate: dates[1].$D,
       endYear: dates[1].$y,
     };
+    const formatSearchDate = (month, day, year) => {
+      // Assuming 'month' is already 1-indexed
+      const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+
+      return [monthNames[month - 1], day + ",", year].join(" ");
+    };
     try {
       const response = await searchStocks.getStockData(searchObj, "1", "month");
       if (response === false) {
         return setError(true);
       }
-
-      const { quotes } = response;
-
-      const data = {
-        date: quotes.map((item) => item.date),
-        close: quotes.map((item) => item.close),
+      const chartDisplayData = {
+        start: formatSearchDate(
+          searchObj.startMonth,
+          searchObj.startDate,
+          searchObj.startYear
+        ),
+        end: formatSearchDate(
+          searchObj.endMonth,
+          searchObj.endDate,
+          searchObj.endYear
+        ),
+        close: response.map((item) => item.close),
+        date_US: response.map((item) => item.date_US),
       };
 
-      if (response.meta.dataGranularity === "1mo") {
-        data.date = data.date.map((dateStr) => {
-          const dateObj = new Date(dateStr);
-          return dateObj.toLocaleString("default", { month: "long" });
-        });
-      }
+      // if (response.meta.dataGranularity === "1mo") {
+      //   data.date = data.date.map((dateStr) => {
+      //     const dateObj = new Date(dateStr);
+      //     return dateObj.toLocaleString("default", { month: "long" });
+      //   });
+      // }
 
-      // console.log(data);
-      setChartData(data);
+      console.log(searchObj);
+      setChartData(chartDisplayData);
     } catch (error) {
       console.log("Error while getting historical data API ", error);
       return setError(true);

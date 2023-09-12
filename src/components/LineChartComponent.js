@@ -4,12 +4,12 @@ import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 
 function LineChartComponent({ chartData }) {
-  console.log(chartData.date);
+  console.log(chartData.start);
   const data = {
-    labels: chartData.date,
+    labels: chartData.date_US,
     datasets: [
       {
-        label: "Monthly Sales Data",
+        label: `${chartData.start} - ${chartData.end}`,
         fill: false,
         lineTension: 0.1,
         backgroundColor: "rgba(75,192,192,0.4)",
