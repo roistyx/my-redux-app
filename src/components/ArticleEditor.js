@@ -116,6 +116,7 @@ export default function ArticleEditor({ handleExtract }) {
           )}
           <div className="textarea-wrapper">
             <textarea
+              autofocus
               className="scrollable-textarea"
               value={articleContent}
               rows="20"

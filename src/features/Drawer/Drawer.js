@@ -45,13 +45,15 @@ function Drawer({ links }) {
         <div
           tabIndex={0}
           ref={overlayRef}
-          className="drawerOverlay"
+          className="drawer-overlay"
           onKeyUp={handleEscape}
           onClick={() => dispatch(closeDrawer())}>
           <div className="drawer" onClick={(e) => e.stopPropagation()}>
             {links.map((item) => (
-              <div className="drawerItem" href={item.link}>
-                {item.name}
+              <div className="drawer-item">
+                <a className="menu-link" href={item.link}>
+                  {item.name}
+                </a>
               </div>
             ))}
           </div>

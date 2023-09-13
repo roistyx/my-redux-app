@@ -111,7 +111,7 @@ function News() {
                         if (segment.type === "highlight") {
                           return (
                             <span key={index} className="highlight">
-                              {segment.content}
+                              {segment.content + " "}
                             </span>
                           );
                         } else {
