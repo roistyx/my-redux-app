@@ -3,6 +3,8 @@ import { Between } from "../../layouts/Line.js";
 import Menu from "../../components/Menu.js";
 import Search from "../Search/Search.js";
 import TickerDisplay from "../../components/TickerDisplay.js";
+import Drawer from "../Drawer/Drawer";
+
 import "./Header.css";
 
 export default function Header({ backgroundColor, height, gap }) {
@@ -24,6 +26,7 @@ export default function Header({ backgroundColor, height, gap }) {
         <Search backgroundColor={backgroundColor} height={height} gap={gap} />
       )}
       {stockData.symbol ? <Menu links={menuItems} /> : null}
+      {stockData.symbol ? <Drawer links={menuItems} /> : null}
     </Between>
   );
 }

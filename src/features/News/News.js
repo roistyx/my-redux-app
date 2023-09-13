@@ -32,15 +32,20 @@ function News() {
   };
 
   const shouldHighlight = (word, phrases) => {
-    return phrases.some((phrase) =>
-      word.toLowerCase().includes(phrase.toLowerCase())
-    );
+    if (!word || typeof word !== "string") return false;
+    const cleanWord = word.replace(/[.,!?;"]/g, ""); // Strips common punctuation
+    return phrases.some((phrase) => {
+      if (!phrase || typeof phrase !== "string") return false;
+      return cleanWord.toLowerCase().includes(phrase.toLowerCase());
+    });
   };
 
   const processTextForHighlight = (text, phrases) => {
+    if (!text || typeof text !== "string") return [];
+    if (!Array.isArray(phrases)) return [];
     return text.split(/\s+/).map((word) => {
       if (shouldHighlight(word, phrases)) {
-        return { type: "highlight", content: word + " " };
+        return { type: "highlight", content: word };
       } else {
         return { type: "text", content: word };
       }

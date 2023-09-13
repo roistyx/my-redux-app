@@ -21,6 +21,7 @@ function App() {
   return (
     <div className="App">
       <Header backgroundColor="#1976d2" height="50px" gap="6px" />
+
       <BrowserRouter>
         <Routes>
           <Route path="/search" element={<SearchDatesRange />} />
