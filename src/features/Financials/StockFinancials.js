@@ -9,7 +9,7 @@ function StockFinancials() {
   const handleGetFinancials = async () => {
     const response = await searchStocks.getStockFinancials(stockData.symbol);
     console.log(response.data);
-    set;
+
     if (!response) {
       alert("API responded with an error");
     }
