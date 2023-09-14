@@ -8,6 +8,7 @@ import SearchDatesRange from "./features/Search/SearchDatesRange";
 import News from "./features/News/News";
 import { useDispatch, useSelector } from "react-redux";
 import { setStockData } from "./features/Search/searchSlice";
+import StockFinancials from "./features/Financials/StockFinancials.js";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ function App() {
         <Routes>
           <Route path="/search" element={<SearchDatesRange />} />
           <Route path="/news" element={<News />} />
+          <Route path="/financials" element={<StockFinancials />} />
         </Routes>
       </BrowserRouter>
     </div>

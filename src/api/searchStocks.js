@@ -23,7 +23,7 @@ export default class searchStocks {
       return response.data;
     } catch (error) {
       console.log("Error while getting quotes ", error);
-      return null; // or throw the error if you want it to be handled by the caller
+      return false; // or throw the error if you want it to be handled by the caller
     }
   }
 
@@ -98,6 +98,19 @@ export default class searchStocks {
     } catch (error) {
       console.error("Error while calling saveStockArticle API:", error);
       throw error; // Propagate the error for better error handling at the caller's side
+    }
+  }
+
+  static async getStockFinancials(symbol) {
+    // console.log("getStockFinancials called", symbol);
+    try {
+      const response = await axios.get(
+        `http://localhost:3100/stock-financials/${symbol}`
+      );
+      return response;
+    } catch (error) {
+      console.error("Error while calling getStockFinancials API:", error);
+      return false;
     }
   }
 }

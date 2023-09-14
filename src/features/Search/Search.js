@@ -23,6 +23,10 @@ function Search({ backgroundColor, height, gap }) {
     if (event.key !== "Enter") return;
     setIsLoading(true);
     const response = await searchStocks.getStockQuote(event.target.value);
+    if (!response) {
+      setIsTyping(false);
+      alert("API responded with an error");
+    }
     console.log("Response", response);
     dispatch(setStockData(response));
     setIsLoading(false);
