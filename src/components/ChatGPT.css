@@ -1,0 +1,44 @@
+.chat-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+.messages-container {
+    overflow-y: auto;
+    height: 400px;
+}
+
+.user-message {
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+.gpt-message {
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.user-text {
+    padding: 10px;
+    border-radius: 5px;
+    background: #e6f7ff;
+}
+
+.gpt-text {
+    padding: 10px;
+    border-radius: 5px;
+    background: #f2f2f2;
+}
+
+.message-input {
+    width: 80%;
+    padding: 10px;
+}
+
+.send-button {
+    width: 18%;
+    margin-left: 2%;
+    padding: 10px;
+}

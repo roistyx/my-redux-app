@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Center } from "../../layouts/Line.js";
-import TextField from "../../components/TextField.js";
+import TextField from "../../components/SearchField.js";
 import searchStocks from "../../api/searchStocks.js";
 import DatesPicker from "../../components/DatesPicker.js";
 import { useDispatch, useSelector } from "react-redux";
