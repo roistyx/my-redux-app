@@ -11,13 +11,17 @@
 }
 
 .user-message {
-    margin-bottom: 10px;
-    text-align: right;
+    margin: 20px 0 20px 0;
+    text-align: left;
+    line-height: 2rem;
+    display: flex;
 }
 
 .gpt-message {
     margin-bottom: 10px;
+    line-height: 2rem;
     text-align: left;
+    display: flex;
 }
 
 .user-text {

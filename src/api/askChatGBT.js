@@ -16,6 +16,22 @@ static async chatBot(inputValue) {
     }
     
   }
+
+  static async saveChatLog(chatLog) {
+    console.log("saveChatLog called", chatLog);
+    try {
+      const response = await axios.post(
+        "http://localhost:3100/save-user-chat-log",
+        {chatLog}
+      );
+      return response;
+    } catch (error) {
+      console.error("Error while calling saveStockArticle API:", error);
+      throw error; // Propagate the error for better error handling at the caller's side
+    }
+  }
+
+
   
  
 }
