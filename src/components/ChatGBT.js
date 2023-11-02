@@ -1,31 +1,36 @@
 import React, { useState } from 'react';
+import askChatGBT from "../api/askChatGBT";
 import './ChatGPT.css';
 
 const ChatGPT = () => {
     const [messages, setMessages] = useState([]);
     const [inputValue, setInputValue] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Add user message to messages array
-        setMessages([...messages, { text: inputValue, sender: 'user' }]);
-
-        // Mock the GPT-3 response
-        setMessages(prev => [...prev, { text: "This is a mock response!", sender: 'gpt' }]);
-
-        // Clear the input field
+    
+        setMessages(prevMessages => [...prevMessages, { text: inputValue, sender: 'user' }]);
+    
+        try {
+            const response = await askChatGBT.chatBot(inputValue);
+            console.log("response", response);
+            setMessages(prevMessages => [...prevMessages, { text: response.data, sender: 'gpt' }]);
+        } catch (error) {
+            console.log("Error while getting response:", error);
+        }
+    
         setInputValue('');
     };
+    
 
     return (
         <div className="chat-container">
             <div className="messages-container">
                 {messages.map((message, index) => (
                     <div key={index} className={message.sender === 'user' ? 'user-message' : 'gpt-message'}>
-                        <span className={message.sender === 'user' ? 'user-text' : 'gpt-text'}>
+                        <div className={message.sender === 'user' ? 'user-text' : 'gpt-text'}>
                             {message.text}
-                        </span>
+                        </div>
                     </div>
                 ))}
             </div>
