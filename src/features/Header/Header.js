@@ -17,6 +17,8 @@ export default function Header({ backgroundColor, height, gap }) {
     { name: "Search", link: "/search" },
     { name: "Login", link: "/login" },
     { name: "Financials", link: "/financials" },
+{ name: "Chat", link: "/chat" },
+    
   ];
 
   return (

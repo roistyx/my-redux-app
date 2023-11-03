@@ -17,6 +17,20 @@ static async chatBot(inputValue) {
     
   }
 
+  static async getChatLog(symbol) {
+    console.log("getChatLog called", symbol);
+    try {
+      const response = await axios.get(
+        `http://localhost:3100/retrieve-stock-chat-log/${symbol}`
+      );
+      return response;
+    } catch (error) {
+      console.error("Error while calling getStockArticle API:", error);
+      throw error; 
+    }
+   
+  }
+
   static async saveChatLog(chatLog) {
     console.log("saveChatLog called", chatLog);
     try {
