@@ -1,24 +1,23 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { Center } from "../../layouts/Line.js";
+import Tabs from "../../components/Tabs/Tabs.js";
+import BalanceSheet from "../Financials/BalanceSheet.js";
 
-import searchStocks from "../../api/searchStocks.js";
+const tabData = [
+  { label: 'tab1', content: <BalanceSheet /> },
+  { label: 'tab2', content: 'Content for Tab 2' },
+  { label: 'tab3', content: 'Content for Tab 3' },
+];
 
 function StockFinancials() {
-  const { stockData } = useSelector((state) => state.search);
 
-  const handleGetFinancials = async () => {
-    const response = await searchStocks.getStockFinancials(stockData.symbol);
-    console.log(response.data);
-
-    if (!response) {
-      alert("API responded with an error");
-    }
-  };
   return (
-    <div>
-      <h1>Stock Financials</h1>
-      <button onClick={handleGetFinancials}>Get Stock Data</button>
-    </div>
+    <Center>
+<Tabs tabs={tabData}  />
+    </Center>
+      
+   
+    
   );
 }
 

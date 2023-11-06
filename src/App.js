@@ -29,6 +29,7 @@ function App() {
           <Route path="/search" element={<SearchDatesRange />} />
           <Route path="/news" element={<News />} />
           <Route path="/financials" element={<StockFinancials />} />
+         
           <Route path="/chat" element={<Chat />} />
         </Routes>
       </BrowserRouter>
