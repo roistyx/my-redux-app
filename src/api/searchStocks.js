@@ -101,12 +101,13 @@ export default class searchStocks {
     }
   }
 
-  static async getStockFinancials(symbol) {
+  static async getStockFinancials(symbol, balanceSheet) {
     // console.log("getStockFinancials called", symbol);
     try {
       const response = await axios.get(
-        `http://localhost:3100/stock-financials/${symbol}`
+        `http://localhost:3100/stock-financials/${'bs'}/${symbol}`
       );
+      console.log("Search",response);
       return response;
     } catch (error) {
       console.error("Error while calling getStockFinancials API:", error);
