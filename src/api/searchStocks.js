@@ -108,7 +108,7 @@ export default class searchStocks {
         `http://localhost:3100/stock-financials/${'bs'}/${symbol}`
       );
       console.log("Search",response);
-      return response;
+      return response.data;
     } catch (error) {
       console.error("Error while calling getStockFinancials API:", error);
       return false;
