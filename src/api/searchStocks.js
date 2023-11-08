@@ -1,15 +1,15 @@
-import axios from "axios";
+import axios from 'axios';
 export default class searchStocks {
   constructor() {
     this.retries = 5;
   }
 
   static async getStockQuote(symbol) {
-    console.log("getStockQuote called", symbol);
+    console.log('getStockQuote called', symbol);
     function formatDate(year, month, day) {
-      return `${year.toString().padStart(4, "0")}-${month
+      return `${year.toString().padStart(4, '0')}-${month
         .toString()
-        .padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
+        .padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
     }
 
     const date = formatDate(new Date().getFullYear(), 1, 1);
@@ -22,7 +22,7 @@ export default class searchStocks {
 
       return response.data;
     } catch (error) {
-      console.log("Error while getting quotes ", error);
+      console.log('Error while getting quotes ', error);
       return false; // or throw the error if you want it to be handled by the caller
     }
   }
@@ -32,19 +32,19 @@ export default class searchStocks {
     searchObj.multiplier = multiplier;
     try {
       const response = await axios.post(
-        "http://localhost:3100/historical",
+        'http://localhost:3100/historical',
         searchObj
       );
 
       return response.data;
     } catch (error) {
-      console.log("Error while getting historical data API ", error);
+      console.log('Error while getting historical data API ', error);
       return false;
     }
   }
 
   static async getStockNews(symbol) {
-    console.log("getStockNews called", symbol);
+    console.log('getStockNews called', symbol);
 
     try {
       const response = await axios.get(
@@ -53,29 +53,29 @@ export default class searchStocks {
 
       return response;
     } catch (error) {
-      console.log("Error while calling getUserProfile API ", error);
+      console.log('Error while calling getUserProfile API ', error);
     }
   }
 
   static async summarizeNews(article) {
     try {
       const response = await axios.post(
-        "http://localhost:3100/summarize",
+        'http://localhost:3100/summarize',
         article
       );
       return response;
     } catch (error) {
-      console.error("Error while calling summarizeNews API:", error);
+      console.error('Error while calling summarizeNews API:', error);
       throw error; // Propagate the error for better error handling at the caller's side
     }
   }
 
   static async extractNews(url) {
     try {
-      const response = await fetch("http://localhost:3100/extract", {
-        method: "POST",
+      const response = await fetch('http://localhost:3100/extract', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ url }),
       });
@@ -83,34 +83,40 @@ export default class searchStocks {
 
       return data.articleContent;
     } catch (error) {
-      console.error("Error uploading image:", error);
+      console.error('Error uploading image:', error);
     }
   }
 
   static async saveStockArticle(article) {
-    console.log("saveStockArticle called", article);
+    console.log('saveStockArticle called', article);
     try {
       const response = await axios.post(
-        "http://localhost:3100/save-article",
+        'http://localhost:3100/save-article',
         article
       );
       return response;
     } catch (error) {
-      console.error("Error while calling saveStockArticle API:", error);
+      console.error(
+        'Error while calling saveStockArticle API:',
+        error
+      );
       throw error; // Propagate the error for better error handling at the caller's side
     }
   }
 
-  static async getStockFinancials(symbol, balanceSheet) {
+  static async getStockFinancials(symbol, reportType) {
     // console.log("getStockFinancials called", symbol);
     try {
       const response = await axios.get(
-        `http://localhost:3100/stock-financials/${'bs'}/${symbol}`
+        `http://localhost:3100/stock-financials/${reportType}/${symbol}`
       );
-      console.log("Search",response);
+      // console.log("Search",response);
       return response.data;
     } catch (error) {
-      console.error("Error while calling getStockFinancials API:", error);
+      console.error(
+        'Error while calling getStockFinancials API:',
+        error
+      );
       return false;
     }
   }

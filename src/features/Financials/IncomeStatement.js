@@ -1,48 +1,51 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import GenerateBalanceSheet from './GenerateBalanceSheet.js';
+import GenerateIncomeStatement from './GenerateIncomeStatement.js';
 import searchStocks from '../../api/searchStocks.js';
 
-function BalanceSheet() {
-  const [balanceSheetObject, setBalanceSheetObject] = useState(null);
+function IncomeStatement() {
+  const [incomeStatement, setIncomeStatement] = useState(null);
   const { stockData } = useSelector((state) => state.search);
   const symbol = stockData.symbol;
-  const reportType = 'bs';
+  const reportType = 'ic';
 
   const handleGetFinancials = async () => {
     const response = await searchStocks.getStockFinancials(
       symbol,
       reportType
     );
-    const balanceSheet = {};
+    let incomeStatementReport = {};
 
     response.forEach((item) => {
       const key = item.concept.replace('us-gaap_', '');
 
-      balanceSheet[key] = {
+      incomeStatementReport[key] = {
         unit: item.unit,
         label: item.label,
         value: item.value,
       };
     });
+    // console.log(balanceSheet);
 
-    setBalanceSheetObject(balanceSheet);
+    setIncomeStatement(incomeStatementReport);
+    // console.log(incomeStatementReport);
 
     if (!response) {
       alert('API responded with an error');
     }
   };
+
   return (
     <div>
-      {balanceSheetObject ? (
-        <GenerateBalanceSheet data={balanceSheetObject} />
+      {incomeStatement ? (
+        <GenerateIncomeStatement data={incomeStatement} />
       ) : (
         <button onClick={handleGetFinancials}>
-          Get Balance Sheet
+          Income Statement
         </button>
       )}
     </div>
   );
 }
 
-export default BalanceSheet;
+export default IncomeStatement;

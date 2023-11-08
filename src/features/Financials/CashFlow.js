@@ -1,48 +1,49 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import GenerateBalanceSheet from './GenerateBalanceSheet.js';
+import GenerateCashFlow from './GenerateCashFlow.js';
 import searchStocks from '../../api/searchStocks.js';
 
-function BalanceSheet() {
-  const [balanceSheetObject, setBalanceSheetObject] = useState(null);
+function CashFlow() {
+  const [cashFlow, setCashFlow] = useState(null);
   const { stockData } = useSelector((state) => state.search);
   const symbol = stockData.symbol;
-  const reportType = 'bs';
+  const reportType = 'cf';
 
   const handleGetFinancials = async () => {
     const response = await searchStocks.getStockFinancials(
       symbol,
       reportType
     );
-    const balanceSheet = {};
+    let cashFlowReport = {};
 
     response.forEach((item) => {
       const key = item.concept.replace('us-gaap_', '');
 
-      balanceSheet[key] = {
+      cashFlowReport[key] = {
         unit: item.unit,
         label: item.label,
         value: item.value,
       };
     });
+    // console.log(balanceSheet);
 
-    setBalanceSheetObject(balanceSheet);
+    setCashFlow(cashFlowReport);
+    // console.log(incomeStatementReport);
 
     if (!response) {
       alert('API responded with an error');
     }
   };
+
   return (
     <div>
-      {balanceSheetObject ? (
-        <GenerateBalanceSheet data={balanceSheetObject} />
+      {cashFlow ? (
+        <GenerateCashFlow data={cashFlow} />
       ) : (
-        <button onClick={handleGetFinancials}>
-          Get Balance Sheet
-        </button>
+        <button onClick={handleGetFinancials}>Cash Flow</button>
       )}
     </div>
   );
 }
 
-export default BalanceSheet;
+export default CashFlow;
