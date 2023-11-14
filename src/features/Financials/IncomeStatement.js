@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import GenerateIncomeStatement from './GenerateIncomeStatement.js';
 import searchStocks from '../../api/searchStocks.js';
 
 function IncomeStatement() {
@@ -14,21 +13,9 @@ function IncomeStatement() {
       symbol,
       reportType
     );
-    let incomeStatementReport = {};
+    console.log(response);
 
-    response.forEach((item) => {
-      const key = item.concept.replace('us-gaap_', '');
-
-      incomeStatementReport[key] = {
-        unit: item.unit,
-        label: item.label,
-        value: item.value,
-      };
-    });
-    // console.log(balanceSheet);
-
-    setIncomeStatement(incomeStatementReport);
-    // console.log(incomeStatementReport);
+    setIncomeStatement(response);
 
     if (!response) {
       alert('API responded with an error');
@@ -38,7 +25,13 @@ function IncomeStatement() {
   return (
     <div>
       {incomeStatement ? (
-        <GenerateIncomeStatement data={incomeStatement} />
+        <div>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: incomeStatement.report,
+            }}
+          />
+        </div>
       ) : (
         <button onClick={handleGetFinancials}>
           Income Statement

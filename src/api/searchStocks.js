@@ -4,6 +4,24 @@ export default class searchStocks {
     this.retries = 5;
   }
 
+  static async getFinancialReport(report, reportType) {
+    console.log('getFinancialReport called', report, reportType);
+    try {
+      const response = await axios.post(
+        'http://localhost:3100/save-report',
+        { report, reportType }
+      );
+      console.log('Search', response);
+      return response.data;
+    } catch (error) {
+      console.error(
+        'Error while calling getFinancialReport API:',
+        error
+      );
+      return false;
+    }
+  }
+
   static async getStockQuote(symbol) {
     console.log('getStockQuote called', symbol);
     function formatDate(year, month, day) {

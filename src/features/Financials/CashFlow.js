@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import GenerateCashFlow from './GenerateCashFlow.js';
 import searchStocks from '../../api/searchStocks.js';
 
 function CashFlow() {
@@ -14,31 +13,22 @@ function CashFlow() {
       symbol,
       reportType
     );
-    let cashFlowReport = {};
+    console.log(response);
 
-    response.forEach((item) => {
-      const key = item.concept.replace('us-gaap_', '');
-
-      cashFlowReport[key] = {
-        unit: item.unit,
-        label: item.label,
-        value: item.value,
-      };
-    });
-    // console.log(balanceSheet);
-
-    setCashFlow(cashFlowReport);
-    // console.log(incomeStatementReport);
+    setCashFlow(response);
 
     if (!response) {
       alert('API responded with an error');
     }
   };
-
   return (
     <div>
       {cashFlow ? (
-        <GenerateCashFlow data={cashFlow} />
+        <div>
+          <div
+            dangerouslySetInnerHTML={{ __html: cashFlow.report }}
+          />
+        </div>
       ) : (
         <button onClick={handleGetFinancials}>Cash Flow</button>
       )}

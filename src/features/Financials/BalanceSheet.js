@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import GenerateBalanceSheet from './GenerateBalanceSheet.js';
 import searchStocks from '../../api/searchStocks.js';
+import SaveAndDisplay from './SaveAndDisplay.js';
 
 function BalanceSheet() {
   const [balanceSheetObject, setBalanceSheetObject] = useState(null);
@@ -15,19 +15,6 @@ function BalanceSheet() {
       reportType
     );
     console.log(response);
-    // const balanceSheet = {};
-
-    // response.forEach((item) => {
-    //   const key = item.concept.replace('us-gaap_', '');
-
-    //   balanceSheet[key] = {
-    //     unit: item.unit,
-    //     label: item.label,
-    //     value: item.value,
-    //   };
-    // });
-
-    // console.log(balanceSheet);
 
     setBalanceSheetObject(response);
 
@@ -37,14 +24,19 @@ function BalanceSheet() {
   };
   return (
     <div>
+      <SaveAndDisplay
+        report={balanceSheetObject}
+        reportType={reportType}
+      />
       {balanceSheetObject ? (
         <div>
           <div
-            dangerouslySetInnerHTML={{ __html: balanceSheetObject }}
+            dangerouslySetInnerHTML={{
+              __html: balanceSheetObject.financial_report,
+            }}
           />
         </div>
       ) : (
-        // <GenerateBalanceSheet data={balanceSheetObject} />
         <button onClick={handleGetFinancials}>
           Get Balance Sheet
         </button>
