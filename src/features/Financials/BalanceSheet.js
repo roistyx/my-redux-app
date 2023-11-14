@@ -14,19 +14,22 @@ function BalanceSheet() {
       symbol,
       reportType
     );
-    const balanceSheet = {};
+    console.log(response);
+    // const balanceSheet = {};
 
-    response.forEach((item) => {
-      const key = item.concept.replace('us-gaap_', '');
+    // response.forEach((item) => {
+    //   const key = item.concept.replace('us-gaap_', '');
 
-      balanceSheet[key] = {
-        unit: item.unit,
-        label: item.label,
-        value: item.value,
-      };
-    });
+    //   balanceSheet[key] = {
+    //     unit: item.unit,
+    //     label: item.label,
+    //     value: item.value,
+    //   };
+    // });
 
-    setBalanceSheetObject(balanceSheet);
+    // console.log(balanceSheet);
+
+    setBalanceSheetObject(response);
 
     if (!response) {
       alert('API responded with an error');
@@ -35,8 +38,13 @@ function BalanceSheet() {
   return (
     <div>
       {balanceSheetObject ? (
-        <GenerateBalanceSheet data={balanceSheetObject} />
+        <div>
+          <div
+            dangerouslySetInnerHTML={{ __html: balanceSheetObject }}
+          />
+        </div>
       ) : (
+        // <GenerateBalanceSheet data={balanceSheetObject} />
         <button onClick={handleGetFinancials}>
           Get Balance Sheet
         </button>

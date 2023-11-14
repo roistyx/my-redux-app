@@ -20,6 +20,8 @@ export default class searchStocks {
         `http://localhost:3100/stock-data/${symbol}/${date}`
       );
 
+      console.log('Response', response.data);
+
       return response.data;
     } catch (error) {
       console.log('Error while getting quotes ', error);
@@ -110,7 +112,7 @@ export default class searchStocks {
       const response = await axios.get(
         `http://localhost:3100/stock-financials/${reportType}/${symbol}`
       );
-      // console.log("Search",response);
+      console.log('Search', response);
       return response.data;
     } catch (error) {
       console.error(

@@ -9,16 +9,16 @@ function formatCurrency(value) {
 
 function GenerateBalanceSheet({ data }) {
   console.log('GenerateBalanceSheet:', data);
-  const calculateTotals = () => {
+  function calculateTotals() {
     return {
-      totalAssets: data.Assets.value,
-      totalLiabilities: data.Liabilities.value,
+      totalAssets: data?.Assets?.value ?? 0,
+      totalLiabilities: data?.Liabilities?.value ?? 0,
       totalEquity:
         data
-          .StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest
-          .value,
+          ?.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest
+          ?.value ?? 0,
     };
-  };
+  }
 
   const { totalAssets, totalLiabilities, totalEquity } =
     calculateTotals();

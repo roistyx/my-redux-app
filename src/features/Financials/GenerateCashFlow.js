@@ -17,7 +17,11 @@ function GenerateCashFlow({ data }) {
       .filter((key) =>
         key.toLowerCase().includes(section.toLowerCase())
       )
-      .reduce((acc, key) => acc + data[key].value, 0);
+      .reduce((acc, key) => {
+        // Check if the key exists and has a property 'value'
+        const value = data[key]?.value ?? 0;
+        return acc + value;
+      }, 0);
   };
 
   const operatingActivitiesTotal = calculateSectionTotals(
@@ -127,9 +131,8 @@ function GenerateCashFlow({ data }) {
             </td>
             <td colSpan="2">
               {formatCurrency(
-                data
-                  .CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffect
-                  .value
+                //   .CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalentsPeriodIncreaseDecreaseIncludingExchangeRateEffect
+                data.value
               )}
             </td>
           </tr>
