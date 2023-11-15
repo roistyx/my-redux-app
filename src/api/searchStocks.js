@@ -4,24 +4,6 @@ export default class searchStocks {
     this.retries = 5;
   }
 
-  static async getFinancialReport(report, reportType) {
-    console.log('getFinancialReport called', report, reportType);
-    try {
-      const response = await axios.post(
-        'http://localhost:3100/save-report',
-        { report, reportType }
-      );
-      console.log('Search', response);
-      return response.data;
-    } catch (error) {
-      console.error(
-        'Error while calling getFinancialReport API:',
-        error
-      );
-      return false;
-    }
-  }
-
   static async getStockQuote(symbol) {
     console.log('getStockQuote called', symbol);
     function formatDate(year, month, day) {
@@ -135,6 +117,39 @@ export default class searchStocks {
     } catch (error) {
       console.error(
         'Error while calling getStockFinancials API:',
+        error
+      );
+      return false;
+    }
+  }
+
+  static async saveFinancialReport(report, reportType) {
+    console.log('getFinancialReport called', report, reportType);
+    try {
+      const response = await axios.post(
+        'http://localhost:3100/save-report',
+        { report, reportType }
+      );
+      // console.log('Search', response);
+      return response.data;
+    } catch (error) {
+      console.error(
+        'Error while calling getFinancialReport API:',
+        error
+      );
+      return false;
+    }
+  }
+
+  static async getFinancialReportList(symbol) {
+    try {
+      const response = await axios.get(
+        `http://localhost:3100/financial-report-list/${symbol}`
+      );
+      return response.data;
+    } catch (error) {
+      console.error(
+        'Error while calling getFinancialReportList API:',
         error
       );
       return false;

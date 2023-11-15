@@ -1,18 +1,17 @@
-import React, { useRef, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { closeDrawer, openDrawer } from "./drawerSlice";
+import React, { useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { closeDrawer, openDrawer } from './drawerSlice';
 // import MenuIcon from "@mui/icons-material/Menu";
-import MenuIcon from "../../elements/MenuIcon.js";
-import "./Drawer.css";
+import MenuIcon from '../../elements/MenuIcon.js';
+import './Drawer.css';
 
 function Drawer({ links }) {
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.drawer.isOpen);
   const overlayRef = useRef(null);
-  console.log(links);
 
   const handleEscape = (event) => {
-    if (event.key === "Escape") {
+    if (event.key === 'Escape') {
       dispatch(closeDrawer());
     }
   };
@@ -47,8 +46,12 @@ function Drawer({ links }) {
           ref={overlayRef}
           className="drawer-overlay"
           onKeyUp={handleEscape}
-          onClick={() => dispatch(closeDrawer())}>
-          <div className="drawer" onClick={(e) => e.stopPropagation()}>
+          onClick={() => dispatch(closeDrawer())}
+        >
+          <div
+            className="drawer"
+            onClick={(e) => e.stopPropagation()}
+          >
             {links.map((item) => (
               <div className="drawer-item">
                 <a className="menu-link" href={item.link}>

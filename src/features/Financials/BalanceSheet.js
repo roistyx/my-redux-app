@@ -24,12 +24,12 @@ function BalanceSheet() {
   };
   return (
     <div>
-      <SaveAndDisplay
-        report={balanceSheetObject}
-        reportType={reportType}
-      />
       {balanceSheetObject ? (
         <div>
+          <SaveAndDisplay
+            report={balanceSheetObject}
+            reportType={reportType}
+          />
           <div
             dangerouslySetInnerHTML={{
               __html: balanceSheetObject.financial_report,
