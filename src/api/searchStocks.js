@@ -112,7 +112,6 @@ export default class searchStocks {
       const response = await axios.get(
         `http://localhost:3100/stock-financials/${reportType}/${symbol}`
       );
-      console.log('Search', response);
       return response.data;
     } catch (error) {
       console.error(
@@ -130,8 +129,8 @@ export default class searchStocks {
         'http://localhost:3100/save-report',
         { report, reportType }
       );
-      // console.log('Search', response);
-      return response.data;
+      console.log('save', response);
+      return response;
     } catch (error) {
       console.error(
         'Error while calling getFinancialReport API:',

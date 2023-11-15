@@ -4,43 +4,18 @@ import searchStocks from '../../api/searchStocks.js';
 import SaveAndDisplay from './SaveAndDisplay.js';
 
 function BalanceSheet() {
-  const [balanceSheetObject, setBalanceSheetObject] = useState(null);
   const { stockData } = useSelector((state) => state.search);
+  const { report_type, report, is_loading } = useSelector(
+    (state) => state.reports
+  );
   const symbol = stockData.symbol;
   const reportType = 'bs';
 
-  const handleGetFinancials = async () => {
-    const response = await searchStocks.getStockFinancials(
-      symbol,
-      reportType
-    );
-    console.log(response);
+  console.log('Balance Sheet report', report);
 
-    setBalanceSheetObject(response);
-
-    if (!response) {
-      alert('API responded with an error');
-    }
-  };
   return (
     <div>
-      {balanceSheetObject ? (
-        <div>
-          <SaveAndDisplay
-            report={balanceSheetObject}
-            reportType={reportType}
-          />
-          <div
-            dangerouslySetInnerHTML={{
-              __html: balanceSheetObject.financial_report,
-            }}
-          />
-        </div>
-      ) : (
-        <button onClick={handleGetFinancials}>
-          Get Balance Sheet
-        </button>
-      )}
+      {is_loading ? <div>Loading...</div> : report.financial_report}
     </div>
   );
 }
