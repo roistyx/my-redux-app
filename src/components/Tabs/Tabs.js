@@ -5,10 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setReportType } from '../../features/Financials/fiancialReportsSlice.js';
 import './TabComponent.css';
 
-const Tabs = ({ tabs }) => {
+const Tabs = ({ tabs, subComponent }) => {
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const dispatch = useDispatch();
   const { report_type } = useSelector((state) => state.reports);
+
   console.log('report', activeTab.name);
 
   useEffect(() => {
@@ -59,6 +60,7 @@ const Tabs = ({ tabs }) => {
           <span className="tab-indicator" />
         </div>
       </Center>
+      {subComponent === null ? null : subComponent}
       <div className="tab-content">
         {tabs.map((tab, index) => {
           if (tab.label !== activeTab.label) return null;

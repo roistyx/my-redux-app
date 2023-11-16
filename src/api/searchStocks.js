@@ -140,10 +140,10 @@ export default class searchStocks {
     }
   }
 
-  static async getFinancialReportList(symbol) {
+  static async getFinancialReportList(symbol, report_type) {
     try {
       const response = await axios.get(
-        `http://localhost:3100/financial-report-list/${symbol}`
+        `http://localhost:3100/financial-report-list/${symbol}/${report_type}}`
       );
       return response.data;
     } catch (error) {

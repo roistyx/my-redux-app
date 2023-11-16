@@ -8,7 +8,8 @@ import {
   setIsSaved,
   setGetReports,
 } from './fiancialReportsSlice.js';
-import DatesPicker from '../../components/DatesPicker.js';
+import SearchReportByDate from './SearchReportByDate.js';
+import { Center } from '../../layouts/Line.js';
 
 function SaveAndDisplay() {
   const { stockData } = useSelector((state) => state.search);
@@ -22,11 +23,13 @@ function SaveAndDisplay() {
   console.log('getFinancialReportList', get_reports);
 
   const symbol = stockData.symbol;
+
   //   console.log('SaveAndDisplay', symbol);
   useEffect(() => {
     const getFinancialReportList = async () => {
       const response = await searchStocks.getFinancialReportList(
-        symbol
+        symbol,
+        report_type
       );
       dispatch(setGetReports(response));
     };
@@ -62,25 +65,29 @@ function SaveAndDisplay() {
   };
 
   return (
-    <div>
-      <DatesPicker />
-      {financialReportList ? (
-        <select>
-          {financialReportList.map((report) => (
-            <option
-              key={report.reportName}
-              value={report.companyName}
-            >
-              {report.reportName}
-            </option>
-          ))}
-        </select>
-      ) : (
-        <div>no reports</div>
-      )}
-      <button onClick={handleSave}>Save</button>
-      <button onClick={handleGetFinancials}>Generate report</button>
-    </div>
+    <>
+      <Center gap="5px 0 5px 0">
+        <SearchReportByDate />
+      </Center>
+      <Center>
+        {financialReportList ? (
+          <select>
+            {financialReportList.map((report) => (
+              <option
+                key={report.reportName}
+                value={report.companyName}
+              >
+                {report.reportName}
+              </option>
+            ))}
+          </select>
+        ) : (
+          <div>no reports</div>
+        )}
+        <button onClick={handleSave}>Save</button>
+        <button onClick={handleGetFinancials}>Generate report</button>
+      </Center>
+    </>
   );
 }
 
