@@ -11,7 +11,6 @@ function BasicSelect({
 }) {
   // Accept padding as a prop
   const [value, setValue] = useState('');
-  console.log('selectContainerMargin', selectContainerMargin);
 
   const handleChange = (event) => {
     setValue(event.target.value);

@@ -10,15 +10,11 @@ const Tabs = ({ tabs, subComponent }) => {
   const dispatch = useDispatch();
   const { report_type } = useSelector((state) => state.reports);
 
-  console.log('report', activeTab.name);
-
   useEffect(() => {
-    console.log('activeTab', activeTab);
     dispatch(setReportType(activeTab.name));
   }, [activeTab]);
 
   const handleClick = (label) => {
-    console.log('Label', label);
     tabs.map((tab) => {
       if (tab.label === label) {
         setActiveTab(tab);
@@ -29,8 +25,6 @@ const Tabs = ({ tabs, subComponent }) => {
   const activeTabIndex = tabs.findIndex(
     (tab) => tab.label === activeTab.label
   );
-
-  console.log('activeTabIndex', activeTabIndex);
 
   const indicatorWidth = 100 / tabs.length;
 

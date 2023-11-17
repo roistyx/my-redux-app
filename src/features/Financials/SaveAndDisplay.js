@@ -20,20 +20,20 @@ function SaveAndDisplay() {
   const [financialReportList, setFinancialReportList] =
     useState(null);
 
-  console.log('getFinancialReportList', get_reports);
-
   const symbol = stockData.symbol;
+  console.log('report_type', report_type);
 
-  //   console.log('SaveAndDisplay', symbol);
   useEffect(() => {
-    const getFinancialReportList = async () => {
+    // console.log('report_type', symbol, report_type);
+    const getFinancialReports = async () => {
       const response = await searchStocks.getFinancialReportList(
         symbol,
         report_type
       );
       dispatch(setGetReports(response));
+      setFinancialReportList(response);
     };
-    getFinancialReportList();
+    getFinancialReports();
   }, [report_type]);
 
   const handleSave = async () => {
@@ -71,16 +71,11 @@ function SaveAndDisplay() {
       </Center>
       <Center>
         {financialReportList ? (
-          <select>
-            {financialReportList.map((report) => (
-              <option
-                key={report.reportName}
-                value={report.companyName}
-              >
-                {report.reportName}
-              </option>
-            ))}
-          </select>
+          financialReportList.map((report) => (
+            <div key={report._id}>
+              <div>{report.report_date}</div>
+            </div>
+          ))
         ) : (
           <div>no reports</div>
         )}

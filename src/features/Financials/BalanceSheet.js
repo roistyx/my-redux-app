@@ -15,7 +15,16 @@ function BalanceSheet() {
 
   return (
     <div>
-      {is_loading ? <div>Loading...</div> : report.financial_report}
+      {is_loading ? <div>Loading...</div> : null}
+      {report ? (
+        <div>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: report.financial_report,
+            }}
+          />
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -28,7 +28,6 @@ function StockFinancials() {
   const { stockData } = useSelector((state) => state.search);
 
   const symbol = stockData.symbol;
-  console.log('report', report_type);
 
   return (
     <Center>

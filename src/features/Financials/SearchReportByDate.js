@@ -18,8 +18,6 @@ function SearchDatesRange() {
   const [chartData, setChartData] = useState({});
   const [error, setError] = useState(false);
 
-  console.log(chartData);
-
   const handleDatesPick = (event) => {
     setDates(event);
     // dispatch(setDates(event.target.value));
@@ -85,7 +83,6 @@ function SearchDatesRange() {
       //   });
       // }
 
-      console.log(searchObj);
       setChartData(chartDisplayData);
     } catch (error) {
       console.log('Error while getting historical data API ', error);
@@ -113,11 +110,6 @@ function SearchDatesRange() {
         />
         <div className="Button">
           <Button
-            style={{
-              padding: '10px 20px',
-              fontSize: '1rem',
-              backgroundColor: '#4caf50',
-            }}
             className="Button"
             onClick={handleSubmit}
             variant="contained"

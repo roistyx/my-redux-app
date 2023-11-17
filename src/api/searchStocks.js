@@ -112,6 +112,8 @@ export default class searchStocks {
       const response = await axios.get(
         `http://localhost:3100/stock-financials/${reportType}/${symbol}`
       );
+
+      console.log('response.data.userRequestedReport', response.data);
       return response.data;
     } catch (error) {
       console.error(
@@ -122,12 +124,12 @@ export default class searchStocks {
     }
   }
 
-  static async saveFinancialReport(report, reportType) {
-    console.log('getFinancialReport called', report, reportType);
+  static async saveFinancialReport(report, report_type) {
+    console.log('getFinancialReport called', report, report_type);
     try {
       const response = await axios.post(
         'http://localhost:3100/save-report',
-        { report, reportType }
+        { report, report_type }
       );
       console.log('save', response);
       return response;
@@ -141,10 +143,12 @@ export default class searchStocks {
   }
 
   static async getFinancialReportList(symbol, report_type) {
+    console.log('getFinancialReportList called', report_type, symbol);
     try {
       const response = await axios.get(
-        `http://localhost:3100/financial-report-list/${symbol}/${report_type}}`
+        `http://localhost:3100/financial-report-list/${report_type}/${symbol}`
       );
+      console.log('getFinancialReportList called', response);
       return response.data;
     } catch (error) {
       console.error(

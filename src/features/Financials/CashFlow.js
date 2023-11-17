@@ -1,37 +1,30 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import searchStocks from '../../api/searchStocks.js';
+import SaveAndDisplay from './SaveAndDisplay.js';
 
 function CashFlow() {
-  const [cashFlow, setCashFlow] = useState(null);
   const { stockData } = useSelector((state) => state.search);
+  const { report_type, report, is_loading } = useSelector(
+    (state) => state.reports
+  );
   const symbol = stockData.symbol;
   const reportType = 'cf';
 
-  const handleGetFinancials = async () => {
-    const response = await searchStocks.getStockFinancials(
-      symbol,
-      reportType
-    );
-    console.log(response);
+  console.log('Balance Sheet report', report);
 
-    setCashFlow(response);
-
-    if (!response) {
-      alert('API responded with an error');
-    }
-  };
   return (
     <div>
-      {cashFlow ? (
+      {is_loading ? <div>Loading...</div> : null}
+      {report ? (
         <div>
           <div
-            dangerouslySetInnerHTML={{ __html: cashFlow.report }}
+            dangerouslySetInnerHTML={{
+              __html: report.financial_report,
+            }}
           />
         </div>
-      ) : (
-        <button onClick={handleGetFinancials}>Cash Flow</button>
-      )}
+      ) : null}
     </div>
   );
 }

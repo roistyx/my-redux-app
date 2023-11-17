@@ -1,42 +1,30 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import searchStocks from '../../api/searchStocks.js';
+import SaveAndDisplay from './SaveAndDisplay.js';
 
 function IncomeStatement() {
-  const [incomeStatement, setIncomeStatement] = useState(null);
   const { stockData } = useSelector((state) => state.search);
+  const { report_type, report, is_loading } = useSelector(
+    (state) => state.reports
+  );
   const symbol = stockData.symbol;
   const reportType = 'ic';
 
-  const handleGetFinancials = async () => {
-    const response = await searchStocks.getStockFinancials(
-      symbol,
-      reportType
-    );
-    console.log(response);
-
-    setIncomeStatement(response);
-
-    if (!response) {
-      alert('API responded with an error');
-    }
-  };
+  console.log('Balance Sheet report', report);
 
   return (
     <div>
-      {incomeStatement ? (
+      {is_loading ? <div>Loading...</div> : null}
+      {report ? (
         <div>
           <div
             dangerouslySetInnerHTML={{
-              __html: incomeStatement.report,
+              __html: report.financial_report,
             }}
           />
         </div>
-      ) : (
-        <button onClick={handleGetFinancials}>
-          Income Statement
-        </button>
-      )}
+      ) : null}
     </div>
   );
 }

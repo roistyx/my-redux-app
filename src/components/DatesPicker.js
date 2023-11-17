@@ -9,7 +9,6 @@ export default function BasicDateRangeField({
   onChange,
   containerMargin,
 }) {
-  console.log('BasicDateRangeField onChange', containerMargin);
   const selectStyle = {
     ...(containerMargin
       ? { '----field-margin': containerMargin }
