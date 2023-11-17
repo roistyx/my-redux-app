@@ -13,28 +13,50 @@ import { Center } from '../../layouts/Line.js';
 
 function SaveAndDisplay() {
   const { stockData } = useSelector((state) => state.search);
-  const { report_type, reports, is_loading, report, get_reports } =
-    useSelector((state) => state.reports);
-  const [FinancialReport, setFinancialReport] = useState(null);
+  const {
+    report_type,
+    reports,
+    is_loading,
+    report,
+    retrieved_reports,
+  } = useSelector((state) => state.reports);
+  const [selectedReport, setSelectedReport] = useState('');
   const dispatch = useDispatch();
   const [financialReportList, setFinancialReportList] =
     useState(null);
 
   const symbol = stockData.symbol;
-  console.log('report_type', report_type);
+  console.log('financialReportList', financialReportList);
 
   useEffect(() => {
-    // console.log('report_type', symbol, report_type);
     const getFinancialReports = async () => {
       const response = await searchStocks.getFinancialReportList(
         symbol,
         report_type
       );
+      let requestedReports = [];
+
+      response.forEach((report) => {
+        if (report.report_type === report_type) {
+          requestedReports.push(report);
+        }
+      });
+      // console.log('requestedReports', requestedReports);
       dispatch(setGetReports(response));
-      setFinancialReportList(response);
+      setFinancialReportList(requestedReports);
     };
     getFinancialReports();
   }, [report_type]);
+
+  const handleSelectChange = (event) => {
+    const selectedId = event.target.value;
+    const report = financialReportList.find(
+      (r) => r._id === selectedId
+    );
+    // setSelectedReport(report);
+    dispatch(setReport(report));
+    // console.log('Selected Report:', report);
+  };
 
   const handleSave = async () => {
     const response = await searchStocks.saveFinancialReport(
@@ -42,6 +64,7 @@ function SaveAndDisplay() {
       report_type,
       symbol
     );
+
     console.log('handleSave', response);
     if (!response) {
       alert('API responded with an error');
@@ -71,11 +94,17 @@ function SaveAndDisplay() {
       </Center>
       <Center>
         {financialReportList ? (
-          financialReportList.map((report) => (
-            <div key={report._id}>
-              <div>{report.report_date}</div>
-            </div>
-          ))
+          <select
+            onChange={handleSelectChange}
+            value={selectedReport?._id || ''}
+          >
+            <option value="">Select a report</option>
+            {financialReportList.map((report) => (
+              <option key={report._id} value={report._id}>
+                {report.company_name} - {report.report_name}
+              </option>
+            ))}
+          </select>
         ) : (
           <div>no reports</div>
         )}

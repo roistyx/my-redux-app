@@ -5,7 +5,7 @@ export default class searchStocks {
   }
 
   static async getStockQuote(symbol) {
-    console.log('getStockQuote called', symbol);
+    // console.log('getStockQuote called', symbol);
     function formatDate(year, month, day) {
       return `${year.toString().padStart(4, '0')}-${month
         .toString()
@@ -20,7 +20,7 @@ export default class searchStocks {
         `http://localhost:3100/stock-data/${symbol}/${date}`
       );
 
-      console.log('Response', response.data);
+      // console.log('Response', response.data);
 
       return response.data;
     } catch (error) {
@@ -113,7 +113,7 @@ export default class searchStocks {
         `http://localhost:3100/stock-financials/${reportType}/${symbol}`
       );
 
-      console.log('response.data.userRequestedReport', response.data);
+      // console.log('response.data.userRequestedReport', response.data);
       return response.data;
     } catch (error) {
       console.error(
@@ -143,12 +143,12 @@ export default class searchStocks {
   }
 
   static async getFinancialReportList(symbol, report_type) {
-    console.log('getFinancialReportList called', report_type, symbol);
+    // console.log('getFinancialReportList called', report_type, symbol);
     try {
       const response = await axios.get(
         `http://localhost:3100/financial-report-list/${report_type}/${symbol}`
       );
-      console.log('getFinancialReportList called', response);
+      // console.log('getFinancialReportList called', response);
       return response.data;
     } catch (error) {
       console.error(

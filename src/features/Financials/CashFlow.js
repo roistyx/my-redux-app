@@ -5,13 +5,18 @@ import SaveAndDisplay from './SaveAndDisplay.js';
 
 function CashFlow() {
   const { stockData } = useSelector((state) => state.search);
-  const { report_type, report, is_loading } = useSelector(
-    (state) => state.reports
-  );
+  const {
+    report_type,
+    reports,
+    is_loading,
+    report,
+    retrieved_reports,
+  } = useSelector((state) => state.reports);
+
   const symbol = stockData.symbol;
   const reportType = 'cf';
 
-  console.log('Balance Sheet report', report);
+  console.log('report_type', report_type);
 
   return (
     <div>

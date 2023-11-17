@@ -11,7 +11,7 @@ function BalanceSheet() {
   const symbol = stockData.symbol;
   const reportType = 'bs';
 
-  console.log('Balance Sheet report', report);
+  // console.log('Balance Sheet report', report);
 
   return (
     <div>

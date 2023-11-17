@@ -7,7 +7,7 @@ const reportsSlice = createSlice({
     report: [],
     is_loading: false,
     is_saved: false,
-    get_reports: [],
+    retrieved_reports: [],
 
     error: null,
   },
@@ -22,7 +22,7 @@ const reportsSlice = createSlice({
       state.is_saved = action.payload;
     },
     setGetReports(state, action) {
-      state.get_reports = action.payload;
+      state.retrieved_reports = action.payload;
     },
     setIsLoading(state, action) {
       state.is_loading = action.payload;
