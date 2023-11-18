@@ -2,21 +2,23 @@ import React, { useState } from 'react';
 import './BasicSelect.css';
 
 function BasicSelect({
+  onSelectChange,
   selectPadding,
   selectContainerMargin,
   customSelectBoxShadow,
   customSelectFocusBoxShadow,
   selectContainerColor,
-  selectCustomColor,
+  selectCustomColor
 }) {
   // Accept padding as a prop
   const [value, setValue] = useState('');
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
+  // const handleChange = event => {
+  //   const newValue = event.target.value;
+  //   setValue(newValue);
+  //   handleSelect(newValue); // Call the passed handleSelect function with the new value
+  // };
 
-  // Use the padding prop for inline styling, with a default value
   const selectStyle = {
     ...(selectContainerMargin
       ? { '--select-container-margin': selectContainerMargin }
@@ -24,8 +26,7 @@ function BasicSelect({
     ...(selectPadding ? { padding: selectPadding } : {}),
     ...(customSelectFocusBoxShadow
       ? {
-          '--custom-select-focus-box-shadow':
-            customSelectFocusBoxShadow,
+          '--custom-select-focus-box-shadow': customSelectFocusBoxShadow
         }
       : {}),
     ...(customSelectBoxShadow
@@ -36,14 +37,14 @@ function BasicSelect({
       : {}),
     ...(selectContainerColor
       ? { '--select-container-color': selectContainerColor }
-      : {}),
+      : {})
   };
 
   return (
     <div className="select-container" style={selectStyle}>
       <select
         value={value}
-        onChange={handleChange}
+        onChange={onSelectChange}
         className="custom-select"
         style={selectStyle}
       >

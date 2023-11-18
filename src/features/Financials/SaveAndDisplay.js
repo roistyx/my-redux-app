@@ -26,24 +26,30 @@ function SaveAndDisplay() {
     useState(null);
 
   const symbol = stockData.symbol;
-  console.log('financialReportList', financialReportList);
+  console.log('symbol', symbol);
 
   useEffect(() => {
     const getFinancialReports = async () => {
-      const response = await searchStocks.getFinancialReportList(
-        symbol,
-        report_type
-      );
       let requestedReports = [];
 
-      response.forEach((report) => {
-        if (report.report_type === report_type) {
-          requestedReports.push(report);
-        }
-      });
+      try {
+        const response = await searchStocks.getFinancialReportList(
+          symbol,
+          report_type
+        );
+
+        response.forEach((report) => {
+          if (report.report_type === report_type) {
+            requestedReports.push(report);
+          }
+        });
+        dispatch(setGetReports(response));
+        setFinancialReportList(requestedReports);
+      } catch (error) {
+        console.log('error', error);
+      }
+
       // console.log('requestedReports', requestedReports);
-      dispatch(setGetReports(response));
-      setFinancialReportList(requestedReports);
     };
     getFinancialReports();
   }, [report_type]);

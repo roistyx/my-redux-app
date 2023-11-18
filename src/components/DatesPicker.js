@@ -1,36 +1,53 @@
-import React from 'react';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { SingleInputDateRangeField } from '@mui/x-date-pickers-pro/SingleInputDateRangeField';
-import './DatesPicker.css';
+import React, { useState, useEffect } from 'react';
+import './DatesPicker.css'; // Make sure your CSS file is correctly linked
 
-export default function BasicDateRangeField({
-  onChange,
-  containerMargin,
-}) {
+export default function DatesPicker({ containerMargin, onDateRangeComplete }) {
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [isTouched, setIsTouched] = useState(false);
+
+  // Handlers for date changes
+  const handleStartDateChange = event => {
+    setStartDate(event.target.value);
+    setIsTouched(true);
+  };
+
+  const handleEndDateChange = event => {
+    setEndDate(event.target.value);
+    setIsTouched(true);
+    if (startDate && endDate) {
+      onDateRangeComplete(startDate, endDate);
+    }
+  };
+
+  // Check if both dates are filled and call onDateRangeComplete
+
+  const isComplete = startDate && endDate;
+
   const selectStyle = {
-    ...(containerMargin
-      ? { '----field-margin': containerMargin }
-      : {}),
+    ...(containerMargin ? { '--field-margin': containerMargin } : {})
   };
 
   return (
     <div className="field-container" style={selectStyle}>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DemoContainer
-          components={[
-            'MultiInputDateRangeField',
-            'SingleInputDateRangeField',
-          ]}
-        >
-          <SingleInputDateRangeField
-            type="text"
-            onChange={onChange}
-            label="Start - End"
-          />
-        </DemoContainer>
-      </LocalizationProvider>
+      <label>
+        Start Date:
+        <input
+          type="date"
+          value={startDate}
+          onChange={handleStartDateChange}
+          className={!isComplete && isTouched ? 'incomplete' : ''}
+        />
+      </label>
+      <label>
+        End Date:
+        <input
+          type="date"
+          value={endDate}
+          onChange={handleEndDateChange}
+          className={!isComplete && isTouched ? 'incomplete' : ''}
+        />
+      </label>
     </div>
   );
 }
