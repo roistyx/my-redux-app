@@ -16,3 +16,11 @@
 .styled-button:hover {
   background-color: #187cb8;
 }
+
+.styled-button:disabled {
+  /* Styles for the disabled state */
+  background-color: grey;
+  color: darkgray;
+  cursor: not-allowed;
+  /* Other styles for disabled state */
+}

@@ -4,7 +4,13 @@ import { Center, Between } from '../../layouts/Line.js';
 import searchStocks from '../../api/searchStocks.js';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Box } from '../../layouts/Box.js';
+import {
+  setReportType,
+  setReport,
+  setIsLoading,
+  setIsSaved,
+  setGetReports
+} from './fiancialReportsSlice.js';
 
 import Button from '../../elements/Button.js';
 import Alert from '@mui/material/Alert';
@@ -13,20 +19,37 @@ import BasicSelect from '../../elements/BasicSelect.js';
 function SearchDatesRange() {
   const dispatch = useDispatch();
   const [dates, setDates] = useState(null);
+  const [selectedQuarter, setSelectedQuarter] = useState('');
   const { stockData } = useSelector(state => state.search);
   const [error, setError] = useState(false);
+  const { report_type, reports, is_loading, report, retrieved_reports } =
+    useSelector(state => state.reports);
+  const symbol = stockData.symbol;
 
   const onDateRangeComplete = (startDate, endDate) => {
-    // Logic to handle the date range
-    console.log('Start Date:', startDate, 'End Date:', endDate);
+    setDates({ startDate, endDate });
   };
 
   const onSelectChange = event => {
-    console.log('event', event.target.value);
+    setSelectedQuarter(event.target.value);
+    console.log('selectedQuarter', event.target.value);
   };
 
-  const handleSubmit = async () => {
-    console.log('dates', dates);
+  const handleGetFinancials = async () => {
+    dispatch(setIsLoading(true));
+    const response = await searchStocks.getStockFinancials(
+      symbol,
+      report_type,
+      dates,
+      selectedQuarter
+    );
+    console.log('handleGetFinancials', response);
+    dispatch(setIsLoading(false));
+    dispatch(setReport(response));
+
+    if (!response) {
+      alert('API responded with an error');
+    }
   };
 
   return (
@@ -49,7 +72,12 @@ function SearchDatesRange() {
           selectContainerColor="grey"
         />
         <div className="Button">
-          <Button className="Button" onClick={handleSubmit} variant="contained">
+          <Button
+            className="Button"
+            onClick={handleGetFinancials}
+            variant="contained"
+            isDisabled={false}
+          >
             Search
           </Button>
         </div>

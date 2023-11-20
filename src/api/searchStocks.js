@@ -77,9 +77,9 @@ export default class searchStocks {
       const response = await fetch('http://localhost:3100/extract', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ url }),
+        body: JSON.stringify({ url })
       });
       const data = await response.json();
 
@@ -98,28 +98,24 @@ export default class searchStocks {
       );
       return response;
     } catch (error) {
-      console.error(
-        'Error while calling saveStockArticle API:',
-        error
-      );
+      console.error('Error while calling saveStockArticle API:', error);
       throw error; // Propagate the error for better error handling at the caller's side
     }
   }
 
-  static async getStockFinancials(symbol, reportType) {
-    // console.log("getStockFinancials called", symbol);
+  static async getStockFinancials(symbol, reportType, dates, selectedQuarter) {
+    const { startDate, endDate } = dates;
+    console.log('dates, selectedReport', startDate, endDate, selectedQuarter);
+
     try {
       const response = await axios.get(
-        `http://localhost:3100/stock-financials/${reportType}/${symbol}`
+        `http://localhost:3100/stock-financials/${reportType}/${symbol}/${startDate}/${endDate}/${selectedQuarter}`
       );
 
       // console.log('response.data.userRequestedReport', response.data);
       return response.data;
     } catch (error) {
-      console.error(
-        'Error while calling getStockFinancials API:',
-        error
-      );
+      console.error('Error while calling getStockFinancials API:', error);
       return false;
     }
   }
@@ -127,17 +123,14 @@ export default class searchStocks {
   static async saveFinancialReport(report, report_type) {
     console.log('getFinancialReport called', report, report_type);
     try {
-      const response = await axios.post(
-        'http://localhost:3100/save-report',
-        { report, report_type }
-      );
+      const response = await axios.post('http://localhost:3100/save-report', {
+        report,
+        report_type
+      });
       console.log('save', response);
       return response;
     } catch (error) {
-      console.error(
-        'Error while calling getFinancialReport API:',
-        error
-      );
+      console.error('Error while calling getFinancialReport API:', error);
       return false;
     }
   }
@@ -151,10 +144,7 @@ export default class searchStocks {
       // console.log('getFinancialReportList called', response);
       return response.data;
     } catch (error) {
-      console.error(
-        'Error while calling getFinancialReportList API:',
-        error
-      );
+      console.error('Error while calling getFinancialReportList API:', error);
       return false;
     }
   }

@@ -51,9 +51,11 @@ function BasicSelect({
         <option value="" disabled>
           Select Quarter
         </option>
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
+        <option value="0">Yearly</option>
+        <option value="1">Quarter 1</option>
+        <option value="2">Quarter 2</option>
+        <option value="3">Quarter 3</option>
+        <option value="4">Quarter 4</option>
       </select>
     </div>
   );
