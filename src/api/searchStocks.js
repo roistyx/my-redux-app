@@ -112,7 +112,7 @@ export default class searchStocks {
         `http://localhost:3100/stock-financials/${reportType}/${symbol}/${startDate}/${endDate}/${selectedQuarter}`
       );
 
-      // console.log('response.data.userRequestedReport', response.data);
+      console.log('response.data.userRequestedReport', response.data);
       return response.data;
     } catch (error) {
       console.error('Error while calling getStockFinancials API:', error);

@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import './DatesPicker.css'; // Make sure your CSS file is correctly linked
+import './DatesPicker.css';
 
 export default function DatesPicker({ containerMargin, onDateRangeComplete }) {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [isTouched, setIsTouched] = useState(false);
 
-  // Handlers for date changes
   const handleStartDateChange = event => {
-    setStartDate(event.target.value);
+    const newStartDate = event.target.value;
+
+    setStartDate(newStartDate);
     setIsTouched(true);
   };
 
   const handleEndDateChange = event => {
-    setEndDate(event.target.value);
+    const newEndDate = event.target.value;
+    setEndDate(newEndDate);
     setIsTouched(true);
-    if (startDate && endDate) {
-      onDateRangeComplete(startDate, endDate);
+
+    if (startDate && newEndDate) {
+      onDateRangeComplete(startDate, newEndDate);
     }
   };
-
-  // Check if both dates are filled and call onDateRangeComplete
 
   const isComplete = startDate && endDate;
 

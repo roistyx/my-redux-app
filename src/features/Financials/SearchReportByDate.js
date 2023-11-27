@@ -27,6 +27,7 @@ function SearchDatesRange() {
   const symbol = stockData.symbol;
 
   const onDateRangeComplete = (startDate, endDate) => {
+    console.log('startDate', startDate, 'endDate', endDate);
     setDates({ startDate, endDate });
   };
 
@@ -43,7 +44,7 @@ function SearchDatesRange() {
       dates,
       selectedQuarter
     );
-    console.log('handleGetFinancials', response);
+
     dispatch(setIsLoading(false));
     dispatch(setReport(response));
 
