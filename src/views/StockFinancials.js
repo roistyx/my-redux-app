@@ -8,29 +8,40 @@ import SaveAndDisplay from '../features/Financials/SaveAndDisplay.js';
 import searchStocks from '../api/searchStocks.js';
 import { stockData } from '../features/Search/searchSlice.js';
 import { useSelector } from 'react-redux';
+import Alert from '../components/Alert.js';
+import Modal from '../components/Modal.js';
 
 const tabData = [
   {
     label: 'Balance Sheet',
     name: 'bs',
-    content: <BalanceSheet />,
+    content: <BalanceSheet />
   },
   {
     label: 'Income Statement',
     name: 'ic,',
-    content: <IncomeStatement />,
+    content: <IncomeStatement />
   },
-  { label: 'Cash Flow', name: 'cf', content: <CashFlow /> },
+  { label: 'Cash Flow', name: 'cf', content: <CashFlow /> }
 ];
 
 function StockFinancials() {
-  const { report_type } = useSelector((state) => state.reports);
-  const { stockData } = useSelector((state) => state.search);
+  const [modal, setModal] = useState(true);
+
+  const { report_type, error } = useSelector(state => state.reports);
+  const { stockData } = useSelector(state => state.search);
+
+  console.log('error', error);
 
   const symbol = stockData.symbol;
 
   return (
     <Center>
+      {error ? (
+        <Modal openModal={modal} closeModal={() => setModal(false)}>
+          <Alert severity="error">Error while fetching data</Alert>
+        </Modal>
+      ) : null}
       <Tabs tabs={tabData} subComponent={<SaveAndDisplay />} />
     </Center>
   );

@@ -9,7 +9,8 @@ import {
   setReport,
   setIsLoading,
   setIsSaved,
-  setGetReports
+  setGetReports,
+  setErrorMessages
 } from './fiancialReportsSlice.js';
 
 import Button from '../../elements/Button.js';
@@ -21,8 +22,7 @@ function SearchDatesRange() {
   const [dates, setDates] = useState(null);
   const [selectedQuarter, setSelectedQuarter] = useState('');
   const { stockData } = useSelector(state => state.search);
-  const [error, setError] = useState(false);
-  const { report_type, reports, is_loading, report, retrieved_reports } =
+  const { report_type, error, reports, is_loading, report, retrieved_reports } =
     useSelector(state => state.reports);
   const symbol = stockData.symbol;
 
@@ -33,10 +33,14 @@ function SearchDatesRange() {
 
   const onSelectChange = event => {
     setSelectedQuarter(event.target.value);
-    console.log('selectedQuarter', event.target.value);
+    // console.log('selectedQuarter', event.target.value);
   };
 
   const handleGetFinancials = async () => {
+    if (!dates) {
+      dispatch(setErrorMessages('Please select a date range'));
+      return;
+    }
     dispatch(setIsLoading(true));
     const response = await searchStocks.getStockFinancials(
       symbol,
@@ -56,9 +60,6 @@ function SearchDatesRange() {
   return (
     <div>
       <Between gap="5px 0 5px 0">
-        {error ? (
-          <Alert severity="error">Error while fetching data</Alert>
-        ) : null}
         <DatesPicker
           onDateRangeComplete={onDateRangeComplete}
           containerMargin="0px 0 0 0"
