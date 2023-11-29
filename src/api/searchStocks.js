@@ -105,7 +105,7 @@ export default class searchStocks {
 
   static async getStockFinancials(symbol, reportType, dates, selectedQuarter) {
     const { startDate, endDate } = dates;
-    console.log('dates, selectedReport', startDate, endDate, selectedQuarter);
+    console.log('report_type', reportType);
 
     try {
       const response = await axios.get(
