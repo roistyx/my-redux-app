@@ -8,9 +8,12 @@ const reportsSlice = createSlice({
     is_loading: false,
     is_saved: false,
     retrieved_reports: [],
-    error: null,
-
-    error: null
+    error_message: {
+      message: '',
+      severity: '',
+      is_error: false
+    }, // should be an object with message and severity
+    error_type: null
   },
   reducers: {
     setReportType(state, action) {
@@ -33,7 +36,7 @@ const reportsSlice = createSlice({
       state.error = action.payload;
     },
     setErrorMessages(state, action) {
-      state.error = action.payload;
+      state.error_message = action.payload;
     }
   }
 });

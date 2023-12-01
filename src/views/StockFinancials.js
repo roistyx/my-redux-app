@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Center } from '../layouts/Line.js';
 import Tabs from '../components/Tabs/Tabs.js';
 import BalanceSheet from '../features/Financials/BalanceSheet.js';
@@ -7,9 +8,16 @@ import CashFlow from '../features/Financials/CashFlow.js';
 import SaveAndDisplay from '../features/Financials/SaveAndDisplay.js';
 import searchStocks from '../api/searchStocks.js';
 import { stockData } from '../features/Search/searchSlice.js';
-import { useSelector } from 'react-redux';
 import Alert from '../components/Alert.js';
 import Modal from '../components/Modal.js';
+import {
+  setReportType,
+  setReport,
+  setIsLoading,
+  setIsSaved,
+  setGetReports,
+  setErrorMessages
+} from '../features/Financials/fiancialReportsSlice.js';
 
 const tabData = [
   {
@@ -26,23 +34,41 @@ const tabData = [
 ];
 
 function StockFinancials() {
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
 
-  const { report_type, error } = useSelector(state => state.reports);
+  const { report_type, error_message } = useSelector(state => state.reports);
   const { stockData } = useSelector(state => state.search);
-
-  console.log('error', error);
+  const { message, severity, is_error } = error_message || {};
+  const dispatch = useDispatch();
+  console.log('error_message:', message, severity);
 
   const symbol = stockData.symbol;
+  const closeErrorMessage = {
+    message: '',
+    severity: '',
+    is_error: false
+  };
+
+  const handleError = () => {
+    dispatch(setErrorMessages(null));
+    setModal(true);
+  };
+  console.log('modal', modal);
 
   return (
     <Center>
-      {error ? (
-        <Modal openModal={modal} closeModal={() => setModal(false)}>
-          <Alert severity="error">Error while fetching data</Alert>
+      {is_error ? (
+        <Modal
+          openModal={!modal}
+          closeModal={() => dispatch(setErrorMessages(closeErrorMessage))}
+        >
+          <Alert severity={severity}>{message}</Alert>
         </Modal>
       ) : null}
-      <Tabs tabs={tabData} subComponent={<SaveAndDisplay />} />
+      <Tabs
+        tabs={tabData}
+        subComponent={<SaveAndDisplay handleError={handleError} />}
+      />
     </Center>
   );
 }

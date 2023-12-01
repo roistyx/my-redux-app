@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import "./Modal.css";
+import React, { useEffect, useRef } from 'react';
+import './Modal.css';
 
 function Modal({ openModal, closeModal, children, articleContent }) {
   const ref = useRef();
@@ -10,7 +10,7 @@ function Modal({ openModal, closeModal, children, articleContent }) {
     } else {
       ref.current?.close();
     }
-  }, [openModal]);
+  }, [closeModal]);
 
   return (
     <dialog className="modal" ref={ref} onCancel={closeModal}>

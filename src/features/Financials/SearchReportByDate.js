@@ -22,12 +22,17 @@ function SearchDatesRange() {
   const [dates, setDates] = useState(null);
   const [selectedQuarter, setSelectedQuarter] = useState('');
   const { stockData } = useSelector(state => state.search);
-  const { report_type, error, reports, is_loading, report, retrieved_reports } =
-    useSelector(state => state.reports);
+  const {
+    report_type,
+    error_message,
+    reports,
+    is_loading,
+    report,
+    retrieved_reports
+  } = useSelector(state => state.reports);
   const symbol = stockData.symbol;
-
+  const { message, severity } = error_message || {};
   const onDateRangeComplete = (startDate, endDate) => {
-    console.log('startDate', startDate, 'endDate', endDate);
     setDates({ startDate, endDate });
   };
 
@@ -37,8 +42,15 @@ function SearchDatesRange() {
   };
 
   const handleGetFinancials = async () => {
+    // dispatch(setReportType({}));
     if (!dates) {
-      dispatch(setErrorMessages('Please select a date range'));
+      const errorMessage = {
+        message: 'this is an error',
+        severity: 'danger',
+        is_error: true
+      };
+      dispatch(setErrorMessages(errorMessage));
+
       return;
     }
     dispatch(setIsLoading(true));

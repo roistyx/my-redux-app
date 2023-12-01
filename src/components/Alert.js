@@ -1,9 +1,10 @@
 import React from 'react';
+import './Alert.css';
 
 function Alert({ severity, children }) {
   const getIcon = severity => {
     switch (severity) {
-      case 'error':
+      case 'danger':
         return '⛔'; // Replace with a proper icon
       case 'warning':
         return '⚠️'; // Replace with a proper icon
@@ -15,7 +16,12 @@ function Alert({ severity, children }) {
         return '';
     }
   };
-  return <div>{children}</div>;
+  return (
+    <div className={`alert alert-${severity}`}>
+      <span className="icon">{getIcon(severity)}</span>
+      {children}
+    </div>
+  );
 }
 
 export default Alert;
