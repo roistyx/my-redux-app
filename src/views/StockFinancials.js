@@ -40,7 +40,6 @@ function StockFinancials() {
   const { stockData } = useSelector(state => state.search);
   const { message, severity, is_error } = error_message || {};
   const dispatch = useDispatch();
-  console.log('error_message:', message, severity);
 
   const symbol = stockData.symbol;
   const closeErrorMessage = {
@@ -53,7 +52,6 @@ function StockFinancials() {
     dispatch(setErrorMessages(null));
     setModal(true);
   };
-  console.log('modal', modal);
 
   return (
     <Center>

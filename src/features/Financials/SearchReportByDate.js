@@ -38,14 +38,23 @@ function SearchDatesRange() {
 
   const onSelectChange = event => {
     setSelectedQuarter(event.target.value);
-    // console.log('selectedQuarter', event.target.value);
   };
 
   const handleGetFinancials = async () => {
     // dispatch(setReportType({}));
     if (!dates) {
       const errorMessage = {
-        message: 'this is an error',
+        message: 'Dates are required',
+        severity: 'danger',
+        is_error: true
+      };
+      dispatch(setErrorMessages(errorMessage));
+
+      return;
+    }
+    if (!selectedQuarter) {
+      const errorMessage = {
+        message: 'Quarter is required (choose )',
         severity: 'danger',
         is_error: true
       };
@@ -60,13 +69,18 @@ function SearchDatesRange() {
       dates,
       selectedQuarter
     );
+    if (!response.financialReportObject) {
+      console.log('response', response);
+      const errorMessage = {
+        message: response.warning_message,
+        severity: 'danger',
+        is_error: true
+      };
+      dispatch(setErrorMessages(errorMessage));
+    }
 
     dispatch(setIsLoading(false));
     dispatch(setReport(response));
-
-    if (!response) {
-      alert('API responded with an error');
-    }
   };
 
   return (

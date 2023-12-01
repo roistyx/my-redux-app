@@ -13,11 +13,11 @@ function BasicSelect({
   // Accept padding as a prop
   const [value, setValue] = useState('');
 
-  // const handleChange = event => {
-  //   const newValue = event.target.value;
-  //   setValue(newValue);
-  //   handleSelect(newValue); // Call the passed handleSelect function with the new value
-  // };
+  const handleChange = event => {
+    const newValue = event.target.value;
+    setValue(newValue);
+    if (onSelectChange) onSelectChange(event);
+  };
 
   const selectStyle = {
     ...(selectContainerMargin
@@ -44,7 +44,7 @@ function BasicSelect({
     <div className="select-container" style={selectStyle}>
       <select
         value={value}
-        onChange={onSelectChange}
+        onChange={handleChange}
         className="custom-select"
         style={selectStyle}
       >
