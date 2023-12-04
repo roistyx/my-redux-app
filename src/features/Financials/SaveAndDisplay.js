@@ -9,20 +9,36 @@ import {
   setGetReports
 } from './fiancialReportsSlice.js';
 import SearchReportByDate from './SearchReportByDate.js';
+
+import Button from '../../elements/Button.js';
 import { Center } from '../../layouts/Line.js';
+import { forEach } from 'lodash';
 
 function SaveAndDisplay() {
   const { stockData } = useSelector(state => state.search);
-  const { report_type, reports, is_loading, report, retrieved_reports } =
-    useSelector(state => state.reports);
+  const { report_type, is_loading, report, retrieved_reports } = useSelector(
+    state => state.reports
+  );
   const [selectedReport, setSelectedReport] = useState('');
   const dispatch = useDispatch();
   const [financialReportList, setFinancialReportList] = useState(null);
 
   const symbol = stockData.symbol;
-  // console.log('symbol', symbol);
+  let reportType = '';
 
   useEffect(() => {
+    switch (
+      report_type // To solve the problem of the report_type being non-existing if 'ic'
+    ) {
+      case 'bs':
+        reportType = 'bs';
+        break;
+      case 'cf':
+        reportType = 'cf';
+        break;
+      default:
+        reportType = 'ic';
+    }
     const getFinancialReports = async () => {
       let requestedReports = [];
 
@@ -31,13 +47,23 @@ function SaveAndDisplay() {
           symbol,
           report_type
         );
+        // response.forEach(statement => {
+        //   if (statement.report_type === report_type) {
+        //     requestedReports.push(statement);
+        //   } else {
+        //     if (statement.report_type === 'ic') {
+        //       requestedReports.push(statement);
+        //     }
+        //   }
+        // });
 
-        response.forEach(report => {
-          if (report.report_type === report_type) {
-            requestedReports.push(report);
+        response.forEach(statement => {
+          if (statement.report_type === reportType) {
+            requestedReports.push(statement);
           }
         });
-        dispatch(setGetReports(response));
+
+        // dispatch(setGetReports(response));
         setFinancialReportList(requestedReports);
       } catch (error) {
         console.log('error', error);
@@ -46,14 +72,14 @@ function SaveAndDisplay() {
       // console.log('requestedReports', requestedReports);
     };
     getFinancialReports();
-  }, [report_type]);
+  }, [report_type, symbol]);
 
   const handleSelectChange = event => {
     const selectedId = event.target.value;
     const report = financialReportList.find(r => r._id === selectedId);
-    // setSelectedReport(report);
+    console.log('Selected Report:', report);
+    setSelectedReport(report);
     dispatch(setReport(report));
-    // console.log('Selected Report:', report);
   };
 
   const handleSave = async () => {
@@ -82,16 +108,16 @@ function SaveAndDisplay() {
             value={selectedReport?._id || ''}
           >
             <option value="">Select a report</option>
-            {financialReportList.map(report => (
-              <option key={report._id} value={report._id}>
-                {report.company_name} - {report.report_name}
+            {financialReportList.map(statement => (
+              <option key={statement._id} value={statement._id}>
+                {statement.company_name} - {statement.report_name}
               </option>
             ))}
           </select>
         ) : (
           <div>no reports</div>
         )}
-        <button onClick={handleSave}>Save</button>
+        <Button onClick={handleSave}>Save</Button>
       </Center>
     </>
   );

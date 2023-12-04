@@ -52,6 +52,7 @@ function SearchDatesRange() {
 
       return;
     }
+
     if (!selectedQuarter) {
       const errorMessage = {
         message: 'Quarter is required (choose )',
@@ -69,8 +70,8 @@ function SearchDatesRange() {
       dates,
       selectedQuarter
     );
-    if (!response.financialReportObject) {
-      console.log('response', response);
+    if (response.error) {
+      console.log('response', response.warning_message);
       const errorMessage = {
         message: response.warning_message,
         severity: 'danger',

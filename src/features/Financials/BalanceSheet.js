@@ -9,7 +9,7 @@ function BalanceSheet() {
     state => state.reports
   );
   const symbol = stockData.symbol;
-  const reportType = 'bs';
+  // const reportType = 'bs';
 
   // console.log('Balance Sheet report', report);
 

@@ -10,7 +10,7 @@ function CashFlow() {
   );
 
   const symbol = stockData.symbol;
-  const reportType = 'cf';
+  // const reportType = 'cf';
 
   return (
     <div>
