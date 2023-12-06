@@ -70,7 +70,7 @@ function SearchDatesRange() {
       dates,
       selectedQuarter
     );
-    if (response.error) {
+    if (response.success === false) {
       console.log('response', response.warning_message);
       const errorMessage = {
         message: response.warning_message,

@@ -1,12 +1,12 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setClearStockData } from "../features/Search/searchSlice.js";
-import CloseIcon from "@mui/icons-material/Close";
-import IconButton from "@mui/material/IconButton";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setClearStockData } from '../features/Search/searchSlice.js';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
 
-import { Between } from "../layouts/Line.js";
-import chroma from "chroma-js";
-import "./TickerDisplay.css";
+import { Between } from '../layouts/Line.js';
+import chroma from 'chroma-js';
+import './TickerDisplay.css';
 
 function TickerDisplay({ style: { backgroundColor } }) {
   const dispatch = useDispatch();
@@ -14,14 +14,15 @@ function TickerDisplay({ style: { backgroundColor } }) {
   const tintedColor = chroma(backgroundColor).brighten(1).hex();
 
   const style = {
-    ...(backgroundColor ? { "--background-color": tintedColor } : {}),
+    ...(backgroundColor ? { '--background-color': tintedColor } : {})
   };
-  const { stockData } = useSelector((state) => state.search);
+  const { stockData } = useSelector(state => state.search);
   function price() {
     return Number.parseFloat(stockData.previousClose).toFixed(2);
   }
+  console.log(stockData);
 
-  const handleClearStockData = (e) => {
+  const handleClearStockData = e => {
     e.preventDefault();
     dispatch(setClearStockData());
   };
@@ -29,12 +30,13 @@ function TickerDisplay({ style: { backgroundColor } }) {
   return (
     <div style={style} className="ticker">
       <h1>{stockData.company_name}</h1>
-      <h2>{"$" + stockData.previous_close}</h2>
+      <h2>{'$' + stockData.previous_close}</h2>
       {/* <h3>{price()}%</h3> */}
       <IconButton
         aria-label="clear"
         color="primary"
-        onClick={handleClearStockData}>
+        onClick={handleClearStockData}
+      >
         <CloseIcon />
       </IconButton>
     </div>

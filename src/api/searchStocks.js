@@ -1,7 +1,8 @@
 import axios from 'axios';
 export default class searchStocks {
   constructor() {
-    this.retries = 5;
+    this.errorFromServer = {};
+    this.consoleLog = this.consoleLog.bind(this.errorFromServer);
   }
 
   static async getStockQuote(symbol) {
@@ -114,12 +115,11 @@ export default class searchStocks {
       const response = await axios.get(
         `http://localhost:3100/stock-financials/${reportType}/${symbol}/${startDate}/${endDate}/${selectedQuarter}`
       );
+      this.errorFromServer = response.data.error;
 
-      console.log('response.data.userRequestedReport', response.data);
       return response.data;
     } catch (error) {
-      console.error('Error while calling getStockFinancials API:', error);
-      return false;
+      return error.response.data;
     }
   }
 
