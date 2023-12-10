@@ -1,36 +1,34 @@
-// src/components/Tabs.js
 import React, { useState, useEffect } from 'react';
 import { Center } from '../../layouts/Line';
 import { useDispatch, useSelector } from 'react-redux';
 import { setReportType } from '../../features/Financials/fiancialReportsSlice.js';
-import './TabComponent.css';
+import Typography from '../Typography.js';
+import './Tabs.css';
 
 const Tabs = ({ tabs, subComponent }) => {
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const dispatch = useDispatch();
-  const { report_type } = useSelector((state) => state.reports);
+  const { report_type } = useSelector(state => state.reports);
 
   useEffect(() => {
     dispatch(setReportType(activeTab.name));
   }, [activeTab]);
 
-  const handleClick = (label) => {
-    tabs.map((tab) => {
+  const handleClick = label => {
+    tabs.map(tab => {
       if (tab.label === label) {
         setActiveTab(tab);
       }
     });
   };
 
-  const activeTabIndex = tabs.findIndex(
-    (tab) => tab.label === activeTab.label
-  );
+  const activeTabIndex = tabs.findIndex(tab => tab.label === activeTab.label);
 
   const indicatorWidth = 100 / tabs.length;
 
   const containerStyle = {
     '--indicator-width': `${indicatorWidth}%`,
-    '--indicator-left': `${activeTabIndex * indicatorWidth}%`,
+    '--indicator-left': `${activeTabIndex * indicatorWidth}%`
   };
 
   return (
@@ -46,13 +44,15 @@ const Tabs = ({ tabs, subComponent }) => {
               onClick={() => handleClick(tab.label)}
             >
               {tab.label}
+
+              {/* <Typography variant="h3">{tab.label}</Typography> */}
             </button>
           ))}
         </div>
 
-        <div className="tab-indicator-container">
+        {/* <div className="tab-indicator-container">
           <span className="tab-indicator" />
-        </div>
+        </div> */}
       </Center>
       {subComponent === null ? null : subComponent}
       <div className="tab-content">
