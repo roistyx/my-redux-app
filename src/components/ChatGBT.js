@@ -63,9 +63,17 @@ const ChatGPT = () => {
   const handleSubmit = async e => {
     e.preventDefault();
 
+    // Split the input value into paragraphs based on double line breaks
+    const paragraphs = inputValue.split('\n\n');
+
+    // Replace line breaks within each paragraph with <br> tags
+    const formattedText = paragraphs
+      .map(paragraph => paragraph.replace(/\n/g, '<br>'))
+      .join('<p>');
+
     setMessages(prevMessages => [
       ...prevMessages,
-      { text: inputValue, sender: 'user', userDataAndChatLog }
+      { text: formattedText, sender: 'user', userDataAndChatLog }
     ]);
 
     try {
@@ -74,6 +82,7 @@ const ChatGPT = () => {
       const response = await askChatGBT.chatBot(inputValue);
       console.log('response', response);
       setIsLoading(false);
+
       setMessages(prevMessages => [
         ...prevMessages,
         { text: response.data, sender: 'gpt', userDataAndChatLog }

@@ -4,13 +4,19 @@
 
 .field-container {
     margin: 20px;
-    padding: 20px;
+    padding: 10px;
     border: 1px solid #cccccc;
     border-radius: 4px;
     background-color: #f9f9f9;
     display: flex;
     flex-direction: row;
     gap: 10px;
+}
+
+.date-inputs {
+    /* display: flex;
+    flex-direction: column; */
+    margin-left: 50px;
 }
 
 .field-container label {

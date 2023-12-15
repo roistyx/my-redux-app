@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './DatesPicker.css';
+import Typography from './Typography';
 
 export default function DatesPicker({ containerMargin, onDateRangeComplete }) {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [isTouched, setIsTouched] = useState(false);
+
+  console.log('containerMargin', containerMargin);
 
   const handleStartDateChange = event => {
     const newStartDate = event.target.value;
@@ -32,7 +35,7 @@ export default function DatesPicker({ containerMargin, onDateRangeComplete }) {
   return (
     <div className="field-container" style={selectStyle}>
       <label>
-        Start Date:
+        <Typography margin="0 5px 0 0">Start date:</Typography>
         <input
           type="date"
           value={startDate}
@@ -41,7 +44,7 @@ export default function DatesPicker({ containerMargin, onDateRangeComplete }) {
         />
       </label>
       <label>
-        End Date:
+        <Typography margin="0 5px 0 0">End date:</Typography>
         <input
           type="date"
           value={endDate}

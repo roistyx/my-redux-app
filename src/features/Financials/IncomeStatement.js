@@ -9,7 +9,7 @@ function IncomeStatement() {
     state => state.reports
   );
   const symbol = stockData.symbol;
-  const reportType = 'ic';
+  // const reportType = 'ic';
 
   return (
     <div>

@@ -47,15 +47,6 @@ function SaveAndDisplay() {
           symbol,
           report_type
         );
-        // response.forEach(statement => {
-        //   if (statement.report_type === report_type) {
-        //     requestedReports.push(statement);
-        //   } else {
-        //     if (statement.report_type === 'ic') {
-        //       requestedReports.push(statement);
-        //     }
-        //   }
-        // });
 
         response.forEach(statement => {
           if (statement.report_type === reportType) {
