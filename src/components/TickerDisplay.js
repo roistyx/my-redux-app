@@ -20,7 +20,6 @@ function TickerDisplay({ style: { backgroundColor } }) {
   function price() {
     return Number.parseFloat(stockData.previousClose).toFixed(2);
   }
-  console.log(stockData);
 
   const handleClearStockData = e => {
     e.preventDefault();

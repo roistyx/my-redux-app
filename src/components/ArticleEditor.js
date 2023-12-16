@@ -21,7 +21,6 @@ export default function ArticleEditor({ handleExtract }) {
   const [modal, setModal] = useState(false);
 
   const handleOpen = async () => {
-    console.log('handleOpen');
     setIsLoading(true);
     try {
       const news = await handleExtract();
@@ -53,8 +52,9 @@ export default function ArticleEditor({ handleExtract }) {
       const { data } = await searchStocks.summarizeNews({
         content: articleContent,
         symbol: stockData.symbol,
-        price: stockData.regularMarketPrice,
-        time: stockData.regularMarketTime,
+        company_name: stockData.company_name,
+        previous_close: stockData.previous_close,
+        last_trade_day: stockData.last_trade_day,
         url: news.url
       });
 
@@ -70,8 +70,9 @@ export default function ArticleEditor({ handleExtract }) {
       const response = await searchStocks.saveStockArticle({
         content: articleContent,
         symbol: stockData.symbol,
-        price: stockData.regularMarketPrice,
-        time: stockData.regularMarketTime,
+        company_name: stockData.company_name,
+        previous_close: stockData.previous_close,
+        last_trade_day: stockData.last_trade_day,
         url: news.url
       });
       console.log(response);
@@ -117,9 +118,12 @@ export default function ArticleEditor({ handleExtract }) {
           )}
           <div className="textarea-wrapper">
             <textarea
-              autofocus
+              autoFocus
               className="scrollable-textarea"
               value={articleContent}
+              // dangerouslySetInnerHTML={{
+              //   __html: articleContent
+              // }}
               rows="20"
               onChange={e => setArticleContent(e.target.value)}
             />
