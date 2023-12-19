@@ -1,8 +1,18 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setStockData } from '../../features/Search/searchSlice.js';
+import searchStocks from '../../api/searchStocks.js';
+import Button from '../../elements/Button.js';
 
 const CompanyGrid = ({ companies }) => {
-  // Define a base size for the grid items
+  const dispatch = useDispatch();
   const baseSize = 100; // Base size in pixels
+
+  const handleClick = async symbol => {
+    console.log('symbol', symbol);
+    const response = await searchStocks.getStockQuote(symbol);
+    dispatch(setStockData(response));
+  };
 
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
@@ -27,8 +37,12 @@ const CompanyGrid = ({ companies }) => {
               backgroundColor: '#f0f0f0'
             }}
           >
-            <span style={{ padding: '5px', textAlign: 'center' }}>
+            <span
+              onClick={() => handleClick(symbol)}
+              style={{ padding: '5px', textAlign: 'center' }}
+            >
               {companyName}
+              {/* <Button onClick={handleClick(symbol)}>{symbol}</Button> */}
             </span>
           </div>
         );
