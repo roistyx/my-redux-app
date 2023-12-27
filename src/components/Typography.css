@@ -1,12 +1,41 @@
-.typography-h1,
-.typography-h2,
-.typography-h3,
-.typography-h4,
-.typography-h5,
-.typography-h6,
-.typography-body1,
-.typography-body2,
-.link {
-    color: var(--typography-color);
-    margin-bottom: var(--typography-margin);
+/* Define default values for custom properties */
+:root {
+    --select-variant: 'body';
+    /* Default variant */
+    --select-color: black;
+    /* Default color */
+    --select-margin: 0;
+    /* Default margin */
 }
+
+.typography-container {
+    color: var(--select-color);
+    margin-bottom: var(--select-margin);
+}
+
+/* Variant-specific styles */
+.typography-container[data-variant='h1'] {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.typography-container[data-variant='h2'] {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.typography-container[data-variant='h3'] {
+    font-size: 1.17em;
+    font-weight: bold;
+}
+
+.typography-container[data-variant='h4'] {
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.typography-container[data-variant='body'] {
+    font-size: 1em;
+}
+
+/* You can add more variants as needed */

@@ -65,7 +65,9 @@ function StockFinancials() {
       ) : null}
       <Tabs
         tabs={tabData}
-        subComponent={<SaveAndDisplay handleError={handleError} />}
+        subComponent={
+          <SaveAndDisplay handleError={handleError} containerMargin />
+        }
       />
     </Center>
   );

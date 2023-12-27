@@ -30,7 +30,7 @@ function InsertText({ article, phrases }) {
     //   dangerouslySetInnerHTML={{ __html: '<strong>Test Bold Text</strong>' }}
     //   />
 
-    <Typography>
+    <Typography color="red">
       <div
         className="article-container"
         dangerouslySetInnerHTML={{
