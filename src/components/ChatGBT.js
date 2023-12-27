@@ -60,7 +60,7 @@ const ChatGPT = () => {
     }
   };
 
-  const handleSubmit = async e => {
+  const handleSubmitToChatGBT = async e => {
     e.preventDefault();
 
     // Split the input value into paragraphs based on double line breaks
@@ -79,7 +79,7 @@ const ChatGPT = () => {
     try {
       setIsLoading(true);
 
-      const response = await askChatGBT.chatBot(inputValue);
+      const response = await askChatGBT.chatBot(inputValue, stockData.symbol);
       console.log('response', response);
       setIsLoading(false);
 
@@ -142,12 +142,12 @@ const ChatGPT = () => {
           onKeyDown={e => {
             if (e.key === 'Enter' && !e.shiftKey) {
               e.preventDefault();
-              handleSubmit(e);
+              handleSubmitToChatGBT(e);
             }
           }}
         />
       )}
-      <button onClick={handleSubmit} className="send-button">
+      <button onClick={handleSubmitToChatGBT} className="send-button">
         Send
       </button>
       {messages.length > 0 ? <button onClick={handleSave}>Save </button> : null}

@@ -3,17 +3,17 @@ import './Typography.css'; // Import the CSS file
 
 export default function Typography({
   variant,
-  color,
-  margin,
+  color = 'var(--typography-color)', // Default to CSS variable
+  margin = 'var(--typography-margin)', // Default to CSS variable
   component: Component = 'p',
   ...props
 }) {
-  const className = `${variant}`; // Construct the class name based on the variant
+  const className = `typography-${variant}`; // Adjusted class name
 
   const style = {
-    color: color,
-    margin: margin
+    '--typography-color': color, // Set CSS variable
+    '--typography-margin': margin // Set CSS variable
   };
 
-  return <span className={className} style={style} {...props} />;
+  return <Component className={className} style={style} {...props} />;
 }

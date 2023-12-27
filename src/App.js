@@ -11,6 +11,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setStockData } from './features/Search/searchSlice';
 import StockFinancials from './views/StockFinancials';
 import CompanyGrid from './components/CompanyGrid/CompanyGrid';
+import InsertText from './components/InsertText/InsertText';
+
+const phrases = [
+  ['investor', 1],
+  ['Wall Street', 2],
+  ['Long-term', 3]
+];
+
 const companies = [
   {
     symbol: 'PFE',
@@ -114,6 +122,12 @@ const companies = [
   }
 ];
 
+const article = `MOST PEOPLE would like to find an easy way to get rich, just as they might want a quick way to get thin, or play a musical instrument. But it is a mistake for novice investors to assume that they can find instant success in achieving high returns when professionals, armed with extensive research and sophisticated technology, struggle to do so. Of course, just as people might get lucky at roulette, they might pick a wonder stock, but the odds are against them. Long-term prosperity can best be achieved by investors who save as much as they can afford in a low-cost fashion and in an asset class that reflects the long-term growth of the economy and the corporate sector. Even then, investors can be unlucky if they start saving in the wrong era (1920s America or 1980s Japan) or if governments seize their assets. These five books provide useful lessons on what approaches to take and, just as importantly, what steps to avoid.
+
+The Intelligent Investor. By Benjamin Graham. (Revised edition, updated with new commentary by Jason Zweig.) HarperCollins; 640 pages; $20.99 and £18.99
+
+This is the foundational text for serious investors, written by the mentor of Warren Buffett, arguably the most successful investor of the modern era. Ben Graham was the archetypal “value investor”, looking for bargains in the market. He honed his skills after the Wall Street crash of 1929 when equity valuations had plunged. Accordingly, some of his methods for finding bargains are difficult to apply today when stocks are more expensively valued. But his principles remain sound. Much depends on the price paid for stocks, so beware of fashionable industries. As he notes “obvious prospects for physical growth in a business do not translate into obvious prospects for investors”  whereas “a sufficiently low price can turn a security of mediocre quality into a sound investment opportunity”.`;
+
 function App() {
   const dispatch = useDispatch();
 
@@ -129,6 +143,10 @@ function App() {
 
       <BrowserRouter>
         <Routes>
+          <Route
+            path="/text"
+            element={<InsertText article={article} phrases={phrases} />}
+          />
           <Route path="/" element={<CompanyGrid companies={companies} />} />
           <Route path="/search" element={<SearchDatesRange />} />
           <Route path="/news" element={<News />} />

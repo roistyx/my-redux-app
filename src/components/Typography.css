@@ -1,52 +1,12 @@
-
-
-.h1 {
-    font-size: 2em;
-    font-weight: bold;
-    margin-bottom: 0.5em;
-}
-
-.h2 {
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-bottom: 0.5em;
-}
-
-.h3 {
-    font-size: 1.17em;
-    font-weight: bold;
-    margin-bottom: 0.5em;
-}
-
-.h4 {
-    font-size: 1em;
-    font-weight: bold;
-    margin-bottom: 0.5em;
-}
-
-.h5 {
-    font-size: 0.83em;
-    font-weight: bold;
-    margin-bottom: 0.5em;
-}
-
-.h6 {
-    font-size: 0.67em;
-    font-weight: bold;
-    margin-bottom: 0.5em;
-}
-
-.typography-body1 {
-    font-size: 1em;
-    margin-bottom: 0.5em;
-}
-
-.typography-body2 {
-    font-size: 0.875em;
-    margin-bottom: 0.5em;
-}
-
+.typography-h1,
+.typography-h2,
+.typography-h3,
+.typography-h4,
+.typography-h5,
+.typography-h6,
+.typography-body1,
+.typography-body2,
 .link {
-    color: #3f51b5;
-    text-decoration: none;
+    color: var(--typography-color);
+    margin-bottom: var(--typography-margin);
 }
